@@ -48,11 +48,13 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.get("http://localhost:8080/v1/student/"+ email, { email })
-      .then(response => {
+    axios.post("http://localhost:8080/v1/auth/register", { email, password })
+      .then(response => 
+        {
         console.log(response.data);
       })
       .catch(error => {
@@ -62,39 +64,52 @@ export default function SignUp() {
 
   return (
     <div className={classes.body}>
-    <Container maxWidth="xs"> 
-      <div className={classes.paper}>
-      <Grid container className={classes.container}>
-      <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              />
-            </Grid>
+        <Container maxWidth="xs" > 
+          <div className={classes.paper} style={{ padding: 20 }}>
+          <Grid container className={classes.container}>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="password"
+                    label="Password"
+                    name="password"
+                    autoComplete="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                  />
+                </Grid>
+              </Grid>
+              <Grid container justify="center" alignItems="center">
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  className={classes.submit}
+                >
+                  Sign up
+                </Button>
+              </Grid>
+            </form>
           </Grid>
-          <Grid container justify="center" alignItems="center">
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              className={classes.submit}
-            >
-              Sign up
-            </Button>
-          </Grid>
-        </form>
-      </Grid>
-      </div>
-     </Container>
+          </div>
+        </Container>
       </div>
     
   );

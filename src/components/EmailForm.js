@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#4c9aff',
     color: 'white',
   },
-  textField: {
+  textField: 
+  {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: '100%',
@@ -70,7 +71,7 @@ export default function SignUp() {
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <TextField
+                  <TextField color = "white"
                     variant="outlined"
                     required
                     fullWidth

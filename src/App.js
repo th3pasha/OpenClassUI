@@ -1,17 +1,30 @@
 import React from "react";
 import "./App.css";
-import EmailForm from "./components/EmailForm";
-import Home from "./components/Home";
-import SignUpForm from "./components/SignUpForm";
+import Main from "./scenes/Main";
+import Login from "./scenes/Login";
+import Register from "./scenes/Register";
+import Update from "./scenes/UpdateInfo";
+import Navbar from "./scenes/Navbar";
+
+import {Route, Routes, BrowserRouter} from "react-router-dom";
 
 function App() 
 {
+
   return (
-      <div style={{ backgroundColor: "#36393F", minHeight: "100vh" }} className="App">
-        <div>
-          <Home/>
-        </div>
-     </div>
+   <div className="App">
+      <div>
+        <BrowserRouter>
+            <Routes>
+                  <Route exact path = "/" element = {<Main/>}></Route>
+                  <Route path = "/login" element = {<Login/>}></Route>
+                  <Route path = "/register" element = {<Register/>}></Route>
+                  <Route path = "/register/update" element = {<Update/>}></Route>
+                  <Route path = "/navbar" element = {<Navbar/>}></Route>
+            </Routes>
+        </BrowserRouter>
+      </div>
+    </div>
   );
 }
 export default App;

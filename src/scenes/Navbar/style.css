@@ -7,15 +7,13 @@
 
 .header {
   width: 100%;
-  padding: 20px;
+  background-color: #36393F;
+  color: #fff;
+  padding: 15px;
 }
-body
-{
-  margin: 0;
-  padding: 0;
 
-}
-.nav {
+.nav 
+{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,7 +21,6 @@ body
 
 .nav-list {
   list-style: none;
-  color : white;
   display: flex;
 }
 
@@ -36,23 +33,14 @@ body
   text-decoration: none;
   padding: 10px;
 }
-.MenuItem {
-  color: black;
-}
 
-/* Increase the specificity */
-.MenuItem.Mui-selected {
-  color: blue;
-}
 .main {
   flex: 1;
   display: flex;
-  color : white;
-  width: 100%;
-  background-color: #282b30;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 50px;
 }
 
 .title {
@@ -69,7 +57,7 @@ body
   font-size: 20px;
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #282b30;
+  background-color: #36393F;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -81,27 +69,11 @@ body
   color: #333;
 }
 
-.sign-in-button{
-  font-size: 15px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #282b30;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.sign-in-button:hover {
-  background-color: #fff;
-  color: #333;
-}
-
-
 .footer {
   width: 100%;
+  background-color: #36393F;
   color: #fff;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   position: absolute;
   bottom: 0;

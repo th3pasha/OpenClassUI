@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import "./HomePage.css";
+import React, { useContext, useState } from 'react';
+import { Button } from '@mui/material';
+import "./style.css";
+import { useNavigate } from 'react-router-dom';
 
-export default function Home() {
-  
+export default function Home() 
+{
+    const user = useState('');
+    const navigate = useNavigate();
 
   return (
     <div className="home-page">
@@ -11,32 +14,31 @@ export default function Home() {
         <nav className="nav">
         <ul className="nav-list">
             <li className="nav-item">
-              <a href="#">Home</a>
+              <Button href="#">Home</Button>
             </li>
             <li className="nav-item">
-              <a href="#">Courses</a>
+              <Button href="#">Class</Button>
             </li>
             <li className="nav-item">
-              <a href="#">About</a>
+              <Button href="#">Assignment</Button>
             </li>
             <li className="nav-item">
-              <a href="#">Contact</a>
+              <Button href="#">GroupChat</Button>
             </li>
           </ul>
           <ul className="nav-list nav-list-right">
             <li className="nav-item">
-              <a href="/EmailForm">Sign In</a>
+              <Button href = "/login" className="sign-in-button">My Account</Button>
             </li>
             <li className="nav-item">
-            <button className="sign-in-button">Sign in</button>
+              <Button href ="/register" variant = "outlined">LOG OUT</Button>
             </li>
           </ul>
         </nav>
       </header>
       <main className="main">
         <h1 className="title">Welcome to OpenClass</h1>
-        <p className="description">Discover new ways of learning and achieving your goals</p>
-        <button className="explore-button">Explore Classes</button>
+        <p className="description">Signed in as {user}</p>
       </main>
       <footer className="footer">
         <p className="copyright">Copyright &copy; 2023 OpenClass</p>

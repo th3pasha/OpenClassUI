@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import "./HomePage.css";
+import { Button } from '@mui/material';
+import "./style.css";
 
 export default function Home() {
   
@@ -11,24 +11,24 @@ export default function Home() {
         <nav className="nav">
         <ul className="nav-list">
             <li className="nav-item">
-              <a href="#">Home</a>
+              <Button href="#">Home</Button>
             </li>
             <li className="nav-item">
-              <a href="#">Courses</a>
+              <Button href="#">Courses</Button>
             </li>
             <li className="nav-item">
-              <a href="#">About</a>
+              <Button href="#">About</Button>
             </li>
             <li className="nav-item">
-              <a href="#">Contact</a>
+              <Button href="#">Contact</Button>
             </li>
           </ul>
           <ul className="nav-list nav-list-right">
             <li className="nav-item">
-              <a href="/EmailForm">Sign In</a>
+              <Button href = "/login" className="sign-in-button">Sign In</Button>
             </li>
             <li className="nav-item">
-            <button className="sign-in-button">Sign in</button>
+              <Button href ="/register" variant = "outlined">Sign up</Button>
             </li>
           </ul>
         </nav>

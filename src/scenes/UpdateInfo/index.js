@@ -1,9 +1,12 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { makeStyles} from '@material-ui/core/styles';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
+import './style.css';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -46,10 +49,32 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUpForm() {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const [apogeeNumber, setApoogeNumber] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:8080/v1/auth/register/update", { apogeeNumber, birthDate })
+      .then(response => 
+      {
+      console.log(response.data);
+      if(response.status == 200)
+      {
+        navigate("/register/update");
+      }  
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+
 
   return (
     <Container className={classes.container}>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -76,6 +101,8 @@ export default function SignUpForm() {
               label="Apogee Number"
               fullWidth
               variant="outlined"
+              value={apogeeNumber}
+              onChange={e => setApoogeNumber(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -86,11 +113,14 @@ export default function SignUpForm() {
               type="date"
               fullWidth
               variant="outlined"
+              value={birthDate}
+              onChange={e => setBirthDate(e.target.value)}
+      
             />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" color="primary" type="submit">
-              Rejoindre
+               Sign in
             </Button>
           </Grid>
         </Grid>

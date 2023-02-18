@@ -23,7 +23,7 @@ export default function Home()
               <Button href="#">Assignment</Button>
             </li>
             <li className="nav-item">
-              <Button href="#">GroupChat</Button>
+              <Button href="/groupchat">GroupChat</Button>
             </li>
           </ul>
           <ul className="nav-list nav-list-right">

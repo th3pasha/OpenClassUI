@@ -5,6 +5,11 @@
   min-height: 100vh;
 }
 
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 .header {
   width: 100%;
   padding: 20px;
@@ -69,7 +74,7 @@ body
   font-size: 20px;
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #282b30;
+  background-color: #3e404b;
   color: #fff;
   border: none;
   cursor: pointer;

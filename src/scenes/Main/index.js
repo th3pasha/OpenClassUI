@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="home-page">
       <header className="header">
-        <nav className="nav">
+      <nav className="nav">
         <ul className="nav-list">
             <li className="nav-item">
               <Button href="#">Home</Button>

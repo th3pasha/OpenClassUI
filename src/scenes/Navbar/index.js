@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import "./style.css";
+import StudentInfo from '../../components/StudentInfo';
+import Post from '../../components/Post';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() 
@@ -10,8 +12,7 @@ export default function Home()
 
   return (
     <div className="home-page">
-      <header className="header">
-        <nav className="nav">
+      <nav className="nav">
         <ul className="nav-list">
             <li className="nav-item">
               <Button href="#">Home</Button>
@@ -35,14 +36,10 @@ export default function Home()
             </li>
           </ul>
         </nav>
-      </header>
-      <main className="main">
-        <h1 className="title">Welcome to OpenClass</h1>
-        <p className="description">Signed in as {user}</p>
-      </main>
-      <footer className="footer">
-        <p className="copyright">Copyright &copy; 2023 OpenClass</p>
-      </footer>
+        <main>
+            <StudentInfo/>
+                 
+        </main>
     </div>
   );
 }

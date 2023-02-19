@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#36393F"
+    background:'linear-gradient(0deg, rgba(62,64,75,1) 0%, rgba(62,64,75,1) 75%, rgba(40,43,54,1) 100%)'
   },
   paper: 
   {
@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#36393F"
   },
   form: 
   {
@@ -74,6 +73,13 @@ export default function SignIn() {
         expires: new Date(decoded.exp *1000),
       });
   };
+
+  const userIdent = (userId) => 
+  {
+      cookies.set("userid", userId, {
+        expires : new Date(userId.exp *1000),
+      });
+  };
   
 
   const handleSubmit = (e) => {
@@ -86,6 +92,9 @@ export default function SignIn() {
         {
           userLogin(response.data.token);
           navigate('/navbar');
+
+          userIdent(response.data.id);
+          console.log(response.data.id);
         }
 
       })

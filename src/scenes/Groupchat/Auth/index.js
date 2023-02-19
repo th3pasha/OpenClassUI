@@ -1,13 +1,58 @@
 import React from 'react';
 import { useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import axios from "axios";
+import './style.css';
 
-const AuthPage = (props) => {
+const useStyles = makeStyles((theme) => ({
+  container: 
+  {
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  body:
+  {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background:'linear-gradient(0deg, rgba(62,64,75,1) 0%, rgba(62,64,75,1) 75%, rgba(40,43,54,1) 100%)'
+  },
+  paper: 
+  {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  form: 
+  {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    backgroundColor: '#282c34',
+    color: 'white',
+  },
+  textField: {
+    fontColor: 'white',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: '100%',
+  },
+}));
+
+const AuthPage = (props) => 
+{
+  const classes = useStyles();
   const [username, setUsername] = useState();
   const [secret, setSecret] = useState();
-  const [email, setEmail] = useState();
-  const [first_name, setFirstName] = useState();
-  const [last_name, setLastName] = useState();
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -17,86 +62,58 @@ const AuthPage = (props) => {
       .catch((e) => console.log(JSON.stringify(e.response.data)));
   };
 
-  const onSignup = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:8080/v1/auth/groupchat/register", {
-        username,
-        secret,
-        email,
-        first_name,
-        last_name,
-      })
-      .then((r) => props.onAuth({ ...r.data, secret })) // NOTE: over-ride secret
-      .catch((e) => console.log(JSON.stringify(e.response.data)));
-  };
+  
 
   return (
-    <div className="login-page">
-      <div className="card">
-        {/* Login Form */}
-        <form onSubmit={onLogin}>
-          <div className="title">Login</div>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            name="secret"
-            placeholder="Password"
-            onChange={(e) => setSecret(e.target.value)}
-          />
-          <button type="submit">LOG IN</button>
+    <div className={classes.body}>
+    <Container maxWidth="xs"> 
+      <div className={classes.paper} style={{ padding: 20 }}>
+      <Grid container className={classes.container}>
+      <form className={classes.form} noValidate onSubmit={onLogin}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <TextField
+                 className = "textfield"
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField 
+                variant="outlined"
+                required
+                fullWidth
+                id="password"
+                label="Password"
+                name="password"
+                autoComplete="password"
+                value={secret}
+                onChange={e => setSecret(e.target.value)}
+              />
+            </Grid>
+          </Grid>
+          <Grid container justify="center" alignItems="center">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+          </Grid>
         </form>
-
-        {/* Sign Up Form */}
-        <form onSubmit={onSignup}>
-          <div className="title">or Sign Up</div>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            name="secret"
-            placeholder="Password"
-            onChange={(e) => setSecret(e.target.value)}
-          />
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            name="first_name"
-            placeholder="First name"
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <input
-            type="text"
-            name="last_name"
-            placeholder="Last name"
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <button type="submit">SIGN UP</button>
-        </form>
+      </Grid>
       </div>
-
-      <style>{`
-      .login-page { width: 100vw; height: 100vh; padding-top: 6vw; background: linear-gradient(180deg, rgba(117,84,160,1) 7%, rgba(117,84,160,1) 17%, rgba(106,95,168,1) 29%, rgba(99,103,174,1) 44%, rgba(87,116,184,1) 66%, rgba(70,135,198,1) 83%, rgba(44,163,219,1) 96%, rgba(22,188,237,1) 100%, rgba(0,212,255,1) 100%); }
-      .card { width: 200px; position: relative; left: calc(50vw - 100px); text-align: center; }
-      .title { padding-top: 32px; font-size: 22px; color: white; font-weight: 700; }
-      input { width: calc(100% - 16px); margin-top: 12px; padding: 8px; background-color: #e6f7ff; outline: none; border: 1px solid #e6f7ff; }
-      button { margin-top: 12px; width: 100%; padding: 8px; }
-      `}</style>
-    </div>
+    </Container>
+</div>
   );
 };
 

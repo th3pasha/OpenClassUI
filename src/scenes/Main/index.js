@@ -10,16 +10,16 @@ export default function Home() {
       <nav className="nav">
         <ul className="nav-list">
             <li className="nav-item">
-              <Button href="#">Home</Button>
+              <Button href="/home">Home</Button>
             </li>
             <li className="nav-item">
-              <Button href="#">Courses</Button>
+              <Button href="/classes">Classes</Button>
             </li>
             <li className="nav-item">
-              <Button href="#">About</Button>
+              <Button href="/about">About</Button>
             </li>
             <li className="nav-item">
-              <Button href="#">Contact</Button>
+              <Button href="/contact">Contact</Button>
             </li>
           </ul>
           <ul className="nav-list nav-list-right">

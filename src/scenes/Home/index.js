@@ -1,13 +1,20 @@
+import { useState } from "react";
 import React from 'react';
-import Navbar from '../Navbar';
-import StudentInfo from '../../components/StudentInfo';
-import Posts from '../../components/Posts';
+import HomePage from '../Home/HomePage';
+import Login from '../Login';
 
-export default function SignIn()
+function GroupChat() 
 {
-  return (
+  const [user, setUser] = useState();
 
-    <Navbar/>
-    
-  );
+  if (user) 
+  {
+    return <Login onAuth={(user) => setUser(user)} />;
+  } 
+  else
+  {
+    return <HomePage user={user} />;
+  }
 }
+
+export default GroupChat;

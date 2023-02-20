@@ -2,10 +2,24 @@ import React, { useState } from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+
+function ShowFailedAlert () 
+{
+  return (
+    <Alert variant = "inlined" color = "error" severity="error"> Please complete all the fields before registering</Alert>
+  );
+}
+function ShowSuccessAlert () 
+{
+  return (
+    <Alert variant = "inlined" color = "success" severity="success"> Account created ! Return to the home page to sign in</Alert>
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -52,6 +66,8 @@ export default function SignUpForm() {
   const [secret, setSecret] = useState();
   const [first_name, setFirstName] = useState();
   const [last_name, setLastName] = useState();
+  const [isError, setError] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
   const [apogeeNumber, setApoogeNumber] = useState('');
 
   const handleSubmit = (e) => {
@@ -66,10 +82,14 @@ export default function SignUpForm() {
       console.log(response.data);
       if(response.status === 200)
       {
-          // TODO NAVIGATION TO HOME PAGE
-      }  
+        setSuccess(true);
+      }
+      else setError(true); 
+       
       })
-      .catch(error => {
+      .catch(error => 
+      {
+        setError(true);
         console.log(error);
       });
     axios
@@ -81,9 +101,10 @@ export default function SignUpForm() {
       last_name,
       })
       .then((r) => e({ ...r.data, secret })) // NOTE: over-ride secret
+      .catch(error =>{
+        console.log(error);
+      });
   }
-
-
 
   return (
     <div className={classes.body}>
@@ -151,6 +172,10 @@ export default function SignUpForm() {
               </Button>
             </Grid>
           </Grid>
+          <div>
+              {isError ? (<ShowFailedAlert/>) : (null)}
+              {isSuccess ? (<ShowSuccessAlert/>) : (null)}
+          </div>
         </form>
       </Container>
     </div>

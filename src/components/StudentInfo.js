@@ -57,7 +57,7 @@ export default function StudentInfo()
 
     return (
         <div className={classes.userInfo}>
-            <Avatar alt="User Avatar" src="/path/to/avatar.jpg" className={classes.avatar} />
+            <Avatar alt={first_name} src="/path/to/avatar.jpg" className={classes.avatar} />
             <Typography variant="h6">{last_name} {first_name}</Typography>
             <Typography variant="subtitle1">Field</Typography>
             <Typography variant="subtitle2">Location</Typography>

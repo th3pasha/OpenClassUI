@@ -4,12 +4,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Alert from '@mui/material/Alert';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import jwt from 'jwt-decode';
 import Cookies from 'universal-cookie';
 import "./style.css";
 
+
+function ShowAlert () 
+{
+  return (
+    <Alert variant = "inlined" color = "error" severity="error"> Incorrect email or password, try again !</Alert>
+  );
+}
+ 
 const useStyles = makeStyles((theme) => ({
   container: 
   {
@@ -50,13 +60,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn() 
+{
   const classes = useStyles();
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isError, setError] = useState(false);
+
 
   const userLogout = () => {
     setUser(null);
@@ -90,15 +103,16 @@ export default function SignIn() {
         console.log(response);
         if (response.status === 200) 
         {
-          userLogin(response.data.token);
-          navigate('/navbar');
-
           userIdent(response.data.id);
           console.log(response.data.id);
+          userLogin(response.data.token);
+          navigate("/home");
         }
 
       })
-      .catch(error => {
+      .catch(error => 
+      { 
+        setError(true);
         console.log(error);
       });
   }
@@ -106,7 +120,7 @@ export default function SignIn() {
   return (
     <div className={classes.body}>
         <Container maxWidth="xs"> 
-          <div className={classes.paper} style={{ padding: 20 }}>
+          <div className={classes.paper} style={{ padding: 20 }}>            
           <Grid container className={classes.container}>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <Grid container spacing={3}>
@@ -148,6 +162,9 @@ export default function SignIn() {
                   Sign In
                 </Button>
               </Grid>
+            <div>
+              {isError ? (<ShowAlert/>) : (null)}
+            </div>
             </form>
           </Grid>
           </div>

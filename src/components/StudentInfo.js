@@ -44,14 +44,14 @@ export default function StudentInfo()
                 headers
             }
         })
-            .then(response => 
-                {
-                    setFirstName(response.data.firstName);
-                    setLastName(response.data.lastName);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        .then(response => 
+        {
+            setLastName(response.data.lastName);
+            setFirstName(response.data.firstName);                    
+        })
+        .catch(error => {
+            console.error(error);
+        });
         
     }, []);
 

@@ -2,7 +2,6 @@ import React from 'react';
 import Error from './error.png'
 import Navbar from '../Navbar';
 import Button from "@material-ui/core/Button";
-import "./style.css";
 
 export default function Home() 
 {
@@ -18,9 +17,11 @@ export default function Home()
                     <td>
                         <img src={Error}></img>
                     </td>
+                </tr>
+                <tr>
                     <td>
-                        <h1 className="title" style={{fontSize: "70px"}}> ERROR 404 </h1>
-                        <p className="description">The requested page does not exist </p>   
+                        <h1 className="title" style={{fontSize: "70px" , color:"#3f51b5"}}> ERROR 404 </h1>
+                        <p className="description" style={{ color:"#3f51b5"}}>The requested page does not exist </p>   
                     </td>
                 </tr>
             </table>

@@ -1,13 +1,25 @@
 import React, { useContext, useState } from 'react';
 import { Button } from '@mui/material';
-import "./style.css";
 import StudentInfo from '../../components/StudentInfo';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import "./navbar.css";
+
+
 
 export default function Home() 
 {
-    const user = useState('');
+    const [user, setUser] = useState('');
+    const cookies = new Cookies();
     const navigate = useNavigate();
+
+    const SignOut = () => 
+    {
+        setUser(null);
+        cookies.remove('token');
+        cookies.remove('userid');
+        navigate("/");
+    } 
 
   return (
     <div className="home-page">
@@ -28,16 +40,15 @@ export default function Home()
           </ul>
           <ul className="nav-list nav-list-right">
             <li className="nav-item">
-              <Button href = "/login" className="sign-in-button">My Account</Button>
+              <Button href = "/account" className="sign-in-button">My Account</Button>
             </li>
             <li className="nav-item">
-              <Button href ="/register" variant = "outlined">LOG OUT</Button>
+              <Button onClick={SignOut} variant = "outlined">LOG OUT</Button>
             </li>
           </ul>
         </nav>
         <main>
-            <StudentInfo/>
-                 
+            <StudentInfo/>   
         </main>
     </div>
   );

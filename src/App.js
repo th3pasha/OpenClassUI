@@ -2,7 +2,6 @@ import React from "react";
 import Main from "./scenes/Main";
 import Login from "./scenes/Login";
 import Register from "./scenes/Register";
-import Navbar from "./scenes/Navbar";
 import {Route, Routes, BrowserRouter} from "react-router-dom";
 import GroupChat from "./scenes/Groupchat";
 import Home from "./scenes/Home";

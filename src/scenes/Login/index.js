@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import jwt from 'jwt-decode';
 import Cookies from 'universal-cookie';
-import "./style.css";
 
 
 function ShowAlert () 
@@ -71,11 +70,6 @@ export default function SignIn()
   const [isError, setError] = useState(false);
 
 
-  const userLogout = () => {
-    setUser(null);
-    cookies.remove("token");
-  };
-  
   const userLogin = (jwt_token) =>
   {
       const decoded = jwt(jwt_token);
@@ -104,7 +98,6 @@ export default function SignIn()
         if (response.status === 200) 
         {
           userIdent(response.data.id);
-          console.log(response.data.id);
           userLogin(response.data.token);
           navigate("/home");
         }

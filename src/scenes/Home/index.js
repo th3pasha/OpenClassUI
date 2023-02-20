@@ -1,20 +1,23 @@
-import { useState } from "react";
 import React from 'react';
 import HomePage from '../Home/HomePage';
+import Cookies from 'universal-cookie';
 import Login from '../Login';
+import { useNavigate } from "react-router-dom";
 
-function GroupChat() 
+export default function Home() 
 {
-  const [user, setUser] = useState();
+  const cookies = new Cookies();
+  const navigate = useNavigate();
+  const id = cookies.get('userid');
+  console.log(id);
 
-  if (user) 
+  if (id === undefined) 
   {
-    return <Login onAuth={(user) => setUser(user)} />;
+    return <Login/>;
+
   } 
   else
   {
-    return <HomePage user={user} />;
+    return <HomePage/>;
   }
 }
-
-export default GroupChat;

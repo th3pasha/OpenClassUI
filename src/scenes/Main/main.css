@@ -53,27 +53,6 @@ body
   
 }
 
-
-.explore-button 
-{
-  padding-top: 15%;
-  font-size: 20px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  width: 10%;
-  background-color: #3e404b;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.explore-button:hover 
-{
-  background-color: #fff;
-  color: #333;
-}
-
 .sign-in-button{
   font-size: 15px;
   padding: 5px 10px;

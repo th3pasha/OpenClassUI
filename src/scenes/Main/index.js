@@ -1,10 +1,18 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import "./style.css";
+import Cookies from 'universal-cookie';
+import Home from '../Home';
+import { useNavigate } from "react-router-dom";
+import "./main.css";
 
-export default function Home() {
-  
+export default function Main() 
+{
+  const cookies = new Cookies();
+  const navigate = useNavigate();
+  const id = cookies.get('userid');
+  console.log(id);
 
+  if(id === undefined)
   return (
     <div className="home-page">
       <nav className="nav">
@@ -41,5 +49,6 @@ export default function Home() {
       </footer>
       </div>
   );
+  else return <Home/>;
 }
 

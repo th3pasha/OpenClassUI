@@ -5,6 +5,11 @@
   min-height: 100vh;
 }
 
+.MuiButtonBase-root
+{
+  font-family: "JetBrains Mono";
+}
+
 .nav 
 {
   width: 100%;
@@ -21,6 +26,7 @@
 }
 
 .nav-item {
+  font-family: "JetBrains Mono";
   margin: 0 10px;
 }
 
@@ -48,6 +54,7 @@
 
 .explore-button {
   font-size: 20px;
+  font-family: "JetBrains Mono";
   padding: 10px 20px;
   border-radius: 5px;
   background-color: #36393F;

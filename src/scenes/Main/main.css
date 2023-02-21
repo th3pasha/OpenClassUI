@@ -69,6 +69,10 @@ body
   color: #333;
 }
 
+.MuiButtonBase-root
+{
+  font-family: "JetBrains Mono";
+}
 
 .footer {
   width: 100%;

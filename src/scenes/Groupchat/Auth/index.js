@@ -1,12 +1,15 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import jwt from 'jwt-decode';
+import Cookies from 'universal-cookie';
 import Container from '@material-ui/core/Container';
 import Alert from '@mui/material/Alert';
 import axios from "axios";
+
 
 function ShowAlert () 
 {
@@ -58,20 +61,40 @@ const useStyles = makeStyles((theme) => ({
 const AuthPage = (props) => 
 {
   const classes = useStyles();
-  const [username, setUsername] = useState();
+  const [user, setUser] = useState();
+  const [username, setUsername] = useState('');
   const [secret, setSecret] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isError, setError] = useState(false);
+  const [isAuth, setAuth] = useState(false);
+  const cookies = new Cookies();
+  const id  = cookies.get('userid');
 
+  useEffect(() => 
+    {
+        axios.get('http://localhost:8080/v1/auth/student/'+ id)
+        .then(response => 
+        {
+           setAuth(true);
+           setUsername(response.data.email);           
+        })
+        .catch(error => {
+        });
+        
+    }, []);
 
-  const onLogin = (e) => {
+  const onLogin = (e) => 
+  {
+    setEmail(username);
+    setPassword(secret);
+
     e.preventDefault();
     axios
       .post("http://localhost:8080/v1/auth/groupchat/login", { username, secret })
-      .then((r) => props.onAuth({ ...r.data, secret })) // NOTE: over-ride secret
+      .then(response => {props.onAuth({...response.data, secret})}) 
       .catch((e) => setError(true));
-  };
-
-  
+};
 
   return (
     <div className={classes.body}>
@@ -81,18 +104,37 @@ const AuthPage = (props) =>
       <form className={classes.form} noValidate onSubmit={onLogin}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <TextField
-                 className = "textfield"
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
-              />
+              <div>
+                { isAuth ?
+                  (
+                    <TextField
+                  className = "textfield"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  inputProps=
+                  {
+                    { readOnly: true, }
+                  }
+                  value={username}/>
+                )
+                : (<TextField
+                  className = "textfield"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                />)}
+              </div>
             </Grid>
             <Grid item xs={12}>
               <TextField 

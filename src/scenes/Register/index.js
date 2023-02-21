@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 function ShowFailedAlert () 
 {
   return (
-    <Alert variant = "inlined" color = "error" severity="error"> Please complete all the fields before registering</Alert>
+    <Alert variant = "outlined" color = "error" severity="error"> Please complete all the fields before registering</Alert>
   );
 }
 function ShowSuccessAlert () 
@@ -68,7 +68,7 @@ export default function SignUpForm() {
   const [last_name, setLastName] = useState();
   const [isError, setError] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
-  const [apogeeNumber, setApoogeNumber] = useState('');
+  const [age, setAge] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,7 +76,7 @@ export default function SignUpForm() {
     const email = username;
     const password = secret;
 
-    axios.post("http://localhost:8080/v1/auth/register", { email, password })
+    axios.post("http://localhost:8080/v1/auth/register", { email, password, age })
       .then(response => 
       {
       console.log(response.data);
@@ -162,8 +162,8 @@ export default function SignUpForm() {
                 label="Apogee Number"
                 fullWidth
                 variant="outlined"
-                value={apogeeNumber}
-                onChange={e => setApoogeNumber(e.target.value)}
+                value={age}
+                onChange={e => setAge(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>

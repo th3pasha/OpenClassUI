@@ -26,7 +26,7 @@ export default function Home()
       <nav className="nav">
         <ul className="nav-list">
             <li className="nav-item">
-              <Button href="/home">Home</Button>
+              <Button variant="text" href="/home">Home</Button>
             </li>
             <li className="nav-item">
               <Button href="/class">Class</Button>

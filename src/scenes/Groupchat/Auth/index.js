@@ -5,7 +5,15 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Alert from '@mui/material/Alert';
 import axios from "axios";
+
+function ShowAlert () 
+{
+  return (
+    <Alert variant = "inlined" color = "error" severity="error"> Incorrect email or password, try again !</Alert>
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
   container: 
@@ -52,13 +60,15 @@ const AuthPage = (props) =>
   const classes = useStyles();
   const [username, setUsername] = useState();
   const [secret, setSecret] = useState();
+  const [isError, setError] = useState(false);
+
 
   const onLogin = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:8080/v1/auth/groupchat/login", { username, secret })
       .then((r) => props.onAuth({ ...r.data, secret })) // NOTE: over-ride secret
-      .catch((e) => console.log(JSON.stringify(e.response.data)));
+      .catch((e) => setError(true));
   };
 
   
@@ -108,6 +118,9 @@ const AuthPage = (props) =>
               Sign In
             </Button>
           </Grid>
+          <div>
+              {isError ? (<ShowAlert/>) : (null)}
+          </div>
         </form>
       </Grid>
       </div>

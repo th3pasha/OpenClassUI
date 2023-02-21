@@ -106,7 +106,6 @@ export default function SignIn()
       .catch(error => 
       { 
         setError(true);
-        console.log(error);
       });
   }
 

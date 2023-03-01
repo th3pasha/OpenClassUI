@@ -1,4 +1,5 @@
-.Box
+.MuiTextField-root
 {
-    
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
 }

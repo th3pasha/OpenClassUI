@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@mui/material/Alert';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import jwt from 'jwt-decode';
 import Cookies from 'universal-cookie';
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import './style.css';
 
 
-function ShowAlert () 
-{
-  return (
-    <Alert variant = "inlined" color = "error" severity="error"> Incorrect email or password, try again !</Alert>
-  );
-}
- 
 const useStyles = makeStyles((theme) => ({
-  container: 
+  container:
   {
     height: '100vh',
     display: 'flex',
@@ -32,16 +27,16 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background:'linear-gradient(0deg, rgba(62,64,75,1) 0%, rgba(62,64,75,1) 75%, rgba(40,43,54,1) 100%)'
+    background: 'linear-gradient(0deg, rgba(62,64,75,1) 0%, rgba(62,64,75,1) 75%, rgba(40,43,54,1) 100%)'
   },
-  paper: 
+  paper:
   {
     marginTop: theme.spacing(8),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  form: 
+  form:
   {
     width: '100%',
     marginTop: theme.spacing(1),
@@ -52,73 +47,86 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
   },
   textField: {
-    fontColor: 'white',
+
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: '100%',
   },
 }));
 
-export default function SignIn() 
-{
+export default function SignIn() {
   const classes = useStyles();
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [user, setUser] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  const [isUmpMail, setUmpMail] = useState(false);
+  const [isReg, setReg] = useState(false);
   const [isError, setError] = useState(false);
 
 
-  const userLogin = (jwt_token) =>
-  {
-      const decoded = jwt(jwt_token);
-  
-      setUser(decoded);
-  
-      cookies.set("token", jwt_token, {
-        expires: new Date(decoded.exp *1000),
-      });
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setUmpMail(false);
+    setReg(false);
   };
 
-  const userIdent = (userId) => 
-  {
-      cookies.set("userid", userId, {
-        expires : new Date(userId.exp *1000),
-      });
+  const userLogin = (jwt_token) => {
+    const decoded = jwt(jwt_token);
+
+    setUser(decoded);
+
+    cookies.set("token", jwt_token, {
+      expires: new Date(decoded.exp * 1000),
+    });
   };
-  
+
+  const userIdent = (userId) => {
+    cookies.set("userid", userId, {
+      expires: new Date(userId.exp * 1000),
+    });
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8080/v1/auth/login", { email, password })
-      .then(response => 
-      {
+    if (email.endsWith("@ump.ac.ma")) 
+    {  
+      axios.post("http://localhost:8080/v1/auth/login", { email, password })
+      .then(response => {
         console.log(response);
         if (response.status === 200) 
         {
+          setReg(true)
           userIdent(response.data.id);
           userLogin(response.data.token);
-          navigate("/home");
         }
-
       })
-      .catch(error => 
-      { 
-        setError(true);
+      .catch(error => {
+        setError(true)
       });
+    }
+    else if(email === "" || !email.endsWith("@ump.ac.ma"))
+    {
+        setUmpMail(true);
+    }
   }
 
   return (
     <div className={classes.body}>
-        <Container maxWidth="xs"> 
-          <div className={classes.paper} style={{ padding: 20 }}>            
+      <Container maxWidth="xs">
+        <div className={classes.paper} style={{ padding: 20 }}>
           <Grid container className={classes.container}>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <TextField
-                     className = "textfield"
+                    className="textfield"
                     variant="outlined"
                     required
                     fullWidth
@@ -130,18 +138,20 @@ export default function SignIn()
                     onChange={e => setEmail(e.target.value)}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <TextField 
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="password"
-                    label="Password"
-                    name="password"
-                    autoComplete="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                  />
+                <Grid item xs ={12}>
+                  <TextField
+                      className="textfield"
+                      variant="outlined"
+                      required
+                      type = "password"
+                      fullWidth
+                      id="Password"
+                      label="Password"
+                      name="Password"
+                      autoComplete="password"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                    />
                 </Grid>
               </Grid>
               <Grid container justify="center" alignItems="center">
@@ -154,13 +164,27 @@ export default function SignIn()
                   Sign In
                 </Button>
               </Grid>
-            <div>
-              {isError ? (<ShowAlert/>) : (null)}
-            </div>
             </form>
           </Grid>
-          </div>
-        </Container>
+        </div>
+        <Stack spacing={2} sx={{ width: '100%' }}>
+          <Snackbar open={isUmpMail} autoHideDuration={5000} onClose={handleClose}>
+            <Alert variant="filled" color="warning" onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+              Please use an valid @ump.ac.ma email !
+            </Alert>
+          </Snackbar>
+          <Snackbar open={isReg} autoHideDuration={5000} onClose={handleClose}>
+            <Alert variant="filled" color="success" onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+              Welcome !
+            </Alert>
+          </Snackbar>
+          <Snackbar open={isError} autoHideDuration={5000} onClose={handleClose}>
+            <Alert variant="filled" color="error" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              Incorrect email or password, try again !
+            </Alert>
+          </Snackbar>
+        </Stack>
+      </Container>
     </div>
   );
 };

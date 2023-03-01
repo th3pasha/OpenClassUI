@@ -62,7 +62,7 @@ export default function SignIn() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const [isUmpMail, setUmpMail] = useState(false);
   const [isReg, setReg] = useState(false);
   const [isError, setError] = useState(false);
@@ -92,28 +92,30 @@ export default function SignIn() {
     });
   };
 
+  function checkEmailFormat(email) {
+    const regex = /^[a-z]+\.[a-z]+\d{2}@ump\.ac\.ma.*$/;
+    return regex.test(email);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email.endsWith("@ump.ac.ma")) 
-    {  
+    if (checkEmailFormat(email)) {
       axios.post("http://localhost:8080/v1/auth/login", { email, password })
-      .then(response => {
-        console.log(response);
-        if (response.status === 200) 
-        {
-          setReg(true)
-          userIdent(response.data.id);
-          userLogin(response.data.token);
-        }
-      })
-      .catch(error => {
-        setError(true)
-      });
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            setReg(true)
+            userIdent(response.data.id);
+            userLogin(response.data.token);
+          }
+        })
+        .catch(error => {
+          setError(true)
+        });
     }
-    else if(email === "" || !email.endsWith("@ump.ac.ma"))
-    {
-        setUmpMail(true);
+    else {
+      setError(false);
+      setUmpMail(true);
     }
   }
 
@@ -138,20 +140,20 @@ export default function SignIn() {
                     onChange={e => setEmail(e.target.value)}
                   />
                 </Grid>
-                <Grid item xs ={12}>
+                <Grid item xs={12}>
                   <TextField
-                      className="textfield"
-                      variant="outlined"
-                      required
-                      type = "password"
-                      fullWidth
-                      id="Password"
-                      label="Password"
-                      name="Password"
-                      autoComplete="password"
-                      value={password}
-                      onChange={e => setPassword(e.target.value)}
-                    />
+                    className="textfield"
+                    variant="outlined"
+                    required
+                    type="password"
+                    fullWidth
+                    id="Password"
+                    label="Password"
+                    name="Password"
+                    autoComplete="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                  />
                 </Grid>
               </Grid>
               <Grid container justify="center" alignItems="center">

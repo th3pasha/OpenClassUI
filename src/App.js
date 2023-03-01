@@ -6,7 +6,7 @@ const Main = lazy(() => import("./scenes/Main"));
 const Post = lazy(() => import("../src/components/Posts"));
 const GroupChat = lazy(() => import("./scenes/Groupchat"));
 const Login = lazy(() => import("./scenes/Login"));
-const Register = lazy(() => import("./scenes/Register/first"));
+const Register = lazy(() => import("./scenes/Register"));
 const Home = lazy(() => import("./scenes/Home"));
 const NotFound = lazy(() => import("./scenes/NotFound"));
 

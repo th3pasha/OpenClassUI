@@ -1,0 +1,13 @@
+.userinfo
+{
+    background-color: white;
+    display: flex;
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+}
+.avatar
+{
+    width: 25px;
+    height: 25px;
+}

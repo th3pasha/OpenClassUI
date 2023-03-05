@@ -35,7 +35,7 @@ export default function Main()
               <Button href = "/login" className="sign-in-button">Sign In</Button>
             </li>
             <li className="nav-item">
-              <Button href ="/register" variant = "outlined">Sign up</Button>
+              <Button href ="/register" variant = "outlined">REGISTER</Button>
             </li>
           </ul>
         </nav>

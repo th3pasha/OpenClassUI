@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@mui/material/Alert';
 import Grid from '@material-ui/core/Grid';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@material-ui/core/Container';
 import jwt from 'jwt-decode';
 import Cookies from 'universal-cookie';
@@ -60,12 +62,36 @@ export default function SignIn() {
   const cookies = new Cookies();
   const [user, setUser] = useState('');
 
+  const id = cookies.get('userid');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
 
   const [isUmpMail, setUmpMail] = useState(false);
   const [isReg, setReg] = useState(false);
   const [isError, setError] = useState(false);
+
+  const [open, setOpen] = React.useState(false);
+
+
+  const handleProgressClose = () => {
+    setOpen(false);
+  };
+
+  const handleProgressToggle = () => {
+    setOpen(!open);
+  };
+
+  const handleProgressClick = () => {
+    handleProgressToggle();
+    setTimeout(() => {
+      handleProgressClose();
+      navigate('/')
+    }, 500); 
+  };
 
 
   const handleClose = (event, reason) => {
@@ -103,10 +129,21 @@ export default function SignIn() {
       axios.post("http://localhost:8080/v1/auth/login", { email, password })
         .then(response => {
           console.log(response);
-          if (response.status === 200) {
+          if (response.status === 200) 
+          {
             setReg(true)
             userIdent(response.data.id);
             userLogin(response.data.token);
+            axios.get("http://localhost:8080/v1/auth/student/"+id)
+              .then(r => 
+                {
+                  setFirstName(r.data.firstName);
+                  setLastName(r.data.lastName);
+                  setTimeout(() => {
+                    handleProgressClick();
+                  }, 300);
+                })
+            
           }
         })
         .catch(error => {
@@ -165,6 +202,13 @@ export default function SignIn() {
                 >
                   Sign In
                 </Button>
+                <Backdrop
+                  sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleProgressClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
               </Grid>
             </form>
           </Grid>
@@ -177,7 +221,7 @@ export default function SignIn() {
           </Snackbar>
           <Snackbar open={isReg} autoHideDuration={5000} onClose={handleClose}>
             <Alert variant="filled" color="success" onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-              Welcome !
+              Welcome {first_name} {last_name} !
             </Alert>
           </Snackbar>
           <Snackbar open={isError} autoHideDuration={5000} onClose={handleClose}>

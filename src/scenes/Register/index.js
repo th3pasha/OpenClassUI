@@ -9,6 +9,10 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import MuiAlert from '@mui/material/Alert';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import './register.css';
+
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -67,6 +71,8 @@ export default function emailForm() {
   const [last_name, setLastName] = useState('');
   const [isError, setError] = useState(false);
 
+  const [birthday, setBirthday] = useState('');
+
   const [username, setUsername] = useState();
   const [secret, setSecret] = useState();
   const [isSuccess, setSuccess] = useState(false);
@@ -75,6 +81,23 @@ export default function emailForm() {
   const [isUmpMail, setUmpMail] = useState(false);
   const [isExists, setExists] = useState(false);
   const [isReg, setReg] = useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleProgressClose = () => {
+    setOpen(false);
+  };
+
+  const handleProgressToggle = () => {
+    setOpen(!open);
+  };
+
+  const handleProgressClick = () => {
+    handleProgressToggle();
+    setTimeout(() => {
+      handleProgressClose();
+      setError(true);
+    }, 300); 
+  };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -99,7 +122,7 @@ export default function emailForm() {
             setError(false);
           }
           if (response.status === 200) {
-            setError(true);
+            handleProgressClick();
             setReg(true)
             setFirstName(response.data.firstName);
             setLastName(response.data.lastName);
@@ -148,6 +171,13 @@ export default function emailForm() {
                 </Grid>
               </form>
             </Grid>
+            <Backdrop
+              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+              open={open}
+              onClick={handleProgressClose}
+            >
+              <CircularProgress color="inherit" />
+            </Backdrop>
           </div>
           <Stack spacing={2} sx={{ width: '100%' }}>
             <Snackbar open={isUmpMail} autoHideDuration={5000} onClose={handleClose}>
@@ -177,7 +207,7 @@ export default function emailForm() {
                   id="firstName"
                   label="First Name"
                   fullWidth
-                  variant="outlined"
+                  variant="filled"
                   value={first_name}
                   disabled
                 />
@@ -188,7 +218,7 @@ export default function emailForm() {
                   id="lastName"
                   label="Last Name"
                   fullWidth
-                  variant="outlined"
+                  variant="filled"
                   value={last_name}
                   disabled
                 />
@@ -199,7 +229,7 @@ export default function emailForm() {
                   id="Email Adress"
                   label="Email Adress"
                   fullWidth
-                  variant="outlined"
+                  variant="filled"
                   value={email}
                   disabled
                 />
@@ -211,8 +241,21 @@ export default function emailForm() {
                   label="Password"
                   fullWidth
                   variant="outlined"
+                  type="password"
                   value={secret}
                   onChange={e => setSecret(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  required
+                  id="Birthday"
+                  label="Birthday *"
+                  fullWidth
+                  variant="outlined"
+                  type="date"
+                  value={null}
+                  onChange={e => setBirthday(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -226,6 +269,7 @@ export default function emailForm() {
                   onChange={e => setAge(e.target.value)}
                 />
               </Grid>
+
               <Grid item xs={12}>
                 <Button variant="contained" color="primary" type="submit">
                   Sign up

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => (
     {
         userInfo:
         {
-            backgroundColor: theme.palette.grey[200],
+            backgroundColor: 'white',
         },
         avatar:
         {

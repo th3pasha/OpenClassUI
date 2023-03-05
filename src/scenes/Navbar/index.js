@@ -1,11 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import StudentInfo from '../../components/StudentInfo/StudentInfo';
+import { Box } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Cookies from 'universal-cookie';
+import StudentsList from '../../components/Students';
+import Post from '../../components/Post';
+import Posts from '../../components/Posts';
 import "./navbar.css";
 
 
@@ -74,7 +78,18 @@ export default function Home() {
         </Backdrop>
       </nav>
       <main>
-        <StudentInfo/>
+        <div className='container'>
+          <div className='student-info'>
+            <StudentInfo />
+          </div>
+          <div className='students-list'>
+            <StudentsList />
+          </div>
+          <div className='post'>
+            <Post/ >
+          </div>
+          <div className='posts'><Posts/></div>
+        </div>
       </main>
     </div>
   );

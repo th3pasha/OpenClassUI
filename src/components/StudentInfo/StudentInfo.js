@@ -49,8 +49,6 @@ export default function StudentInfo() {
             <div className="userinfo">
                 <Avatar alt={first_name} src="/path/to/avatar.jpg" className="avatar" />
                 <Typography variant="h6">{first_name} {last_name}</Typography>
-                <Typography variant="subtitle1">Field</Typography>
-                <Typography variant="subtitle2">Location</Typography>
             </div>
             <div>
 

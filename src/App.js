@@ -8,9 +8,10 @@ const Login = lazy(() => import("./scenes/Login"));
 const Register = lazy(() => import("./scenes/Register"));
 const Home = lazy(() => import("./scenes/Home"));
 const NotFound = lazy(() => import("./scenes/NotFound"));
-const Feed = lazy(() => import("./components/Feed"));
 
 const Students = lazy(() => import("./components/Students"));
+const Post = lazy(() => import('./components/Post'));
+const Posts = lazy(() => import('./components/Posts'));
 
 function App() {
   return (
@@ -21,12 +22,14 @@ function App() {
             <Route exact path="/" element={<Main/>}></Route>
             <Route path='*' element={<NotFound/>} />
             <Route path="/login" element={<Login/>}></Route>
-            <Route path = '/feed' element={<Feed/>}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/groupchat" element={<GroupChat />}></Route>
 
             <Route path="/students" element={<Students/>}></Route>
+            <Route path="/post" element={<Post/>}></Route>
+            <Route path="/posts" element={<Posts/>}></Route>
+
           </Routes>
         </BrowserRouter>
       </div>

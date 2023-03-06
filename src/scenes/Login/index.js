@@ -90,7 +90,7 @@ export default function SignIn() {
     setTimeout(() => {
       handleProgressClose();
       navigate('/')
-    }, 500); 
+    }, 500);
   };
 
 
@@ -99,6 +99,7 @@ export default function SignIn() {
       return;
     }
     setUmpMail(false);
+    setError(false);
     setReg(false);
   };
 
@@ -129,21 +130,13 @@ export default function SignIn() {
       axios.post("http://localhost:8080/v1/auth/login", { email, password })
         .then(response => {
           console.log(response);
-          if (response.status === 200) 
-          {
+          if (response.status === 200) {
             setReg(true)
             userIdent(response.data.id);
             userLogin(response.data.token);
-            axios.get("http://localhost:8080/v1/auth/student/"+id)
-              .then(r => 
-                {
-                  setFirstName(r.data.firstName);
-                  setLastName(r.data.lastName);
-                  setTimeout(() => {
-                    handleProgressClick();
-                  }, 300);
-                })
-            
+            setTimeout(() => {
+              handleProgressClick();
+            }, 300);
           }
         })
         .catch(error => {

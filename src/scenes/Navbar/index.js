@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import StudentInfo from '../../components/StudentInfo/StudentInfo';
-import { Box } from '@mui/material';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -78,18 +77,26 @@ export default function Home() {
         </Backdrop>
       </nav>
       <main>
-        <div className='container'>
-          <div className='student-info'>
-            <StudentInfo />
-          </div>
-          <div className='students-list'>
-            <StudentsList />
-          </div>
-          <div className='post'>
-            <Post/ >
-          </div>
-          <div className='posts'><Posts/></div>
-        </div>
+        <Container maxWidth="lg">
+          <Grid container spacing={5}>
+            <Grid item xs={15} md={3}>
+              <StudentInfo />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Grid container spacing={5}>
+                <Grid item xs={12} md={30}>
+                  <Post />
+                </Grid>
+                <Grid item xs={12} md={18}>
+                  <Posts />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <StudentsList />
+            </Grid>
+          </Grid>
+        </Container>  
       </main>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
 import Stack from '@mui/material/Stack';
@@ -67,6 +67,7 @@ function checkEmailFormat(email) {
 export default function emailForm() {
   const classes = useStyles();
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [isError, setError] = useState(false);
@@ -78,10 +79,13 @@ export default function emailForm() {
   const [isSuccess, setSuccess] = useState(false);
   const [age, setAge] = useState('');
 
+  const [apogeeNum, setApogeeNum] = useState('');
+  const [password, setPassword] = useState('');
+
   const [isUmpMail, setUmpMail] = useState(false);
   const [isExists, setExists] = useState(false);
   const [isReg, setReg] = useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleProgressClose = () => {
     setOpen(false);
@@ -90,6 +94,15 @@ export default function emailForm() {
   const handleProgressToggle = () => {
     setOpen(!open);
   };
+
+  const handleFinalProgressClick = () => 
+  {
+    handleProgressToggle();
+    setTimeout(() => {
+      handleProgressClose();
+      navigate('/home');
+    }, 400); 
+  }
 
   const handleProgressClick = () => {
     handleProgressToggle();
@@ -107,6 +120,14 @@ export default function emailForm() {
     setExists(false);
     setReg(false);
   };
+
+  const handleRegisterSubmit = (e) =>
+  {
+    e.preventDefault();
+    axios.post("http://localhost:8080/v1/auth/register", {email, password, apogeeNum, birthday})
+    .then(response => {handleFinalProgressClick()})
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -199,7 +220,7 @@ export default function emailForm() {
         </Container>
       </div>) : (<div className={classes.body}>
         <Container className={classes.container}>
-          <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+          <form className={classes.root} noValidate autoComplete="off" onSubmit={handleRegisterSubmit}>
             <Grid container spacing={4}>
               <Grid item xs={10} sm={4}>
                 <TextField
@@ -242,8 +263,8 @@ export default function emailForm() {
                   fullWidth
                   variant="outlined"
                   type="password"
-                  value={secret}
-                  onChange={e => setSecret(e.target.value)}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
@@ -254,7 +275,7 @@ export default function emailForm() {
                   fullWidth
                   variant="outlined"
                   type="date"
-                  value={null}
+                  value={birthday}
                   onChange={e => setBirthday(e.target.value)}
                 />
               </Grid>
@@ -265,8 +286,8 @@ export default function emailForm() {
                   label="Apogee Number"
                   fullWidth
                   variant="outlined"
-                  value={age}
-                  onChange={e => setAge(e.target.value)}
+                  value={apogeeNum}
+                  onChange={e => setApogeeNum(e.target.value)}
                 />
               </Grid>
 

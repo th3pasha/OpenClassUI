@@ -50,32 +50,11 @@
   justify-content: center;
   padding: 50px;
 }
-.container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    "student-info students-list ."
-    "post posts .";
-}
 
-.student-info {
-  grid-area: student-info;
+.student-info
+{
+  padding-right: 100px !important;
 }
-
-.students-list {
-  grid-area: students-list;
-}
-
-.post {
-  grid-area: post;
-}
-
-.posts {
-  grid-area: posts;
-}
-
 
 .description {
   font-size: 24px;

@@ -6,6 +6,7 @@ import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 600,
+        borderRadius: '15px',
         margin: '0 auto',
     },
     textField: {

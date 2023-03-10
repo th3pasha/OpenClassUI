@@ -2,12 +2,12 @@
 {
   font-family: 'JetBrains Mono' !important;
 }
-
+/*
 ::-webkit-scrollbar 
 {
   width: 0; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
-}
+ /* background: transparent; /* Optional: just make scrollbar invisible */
+/*}*/
 
 body
 {

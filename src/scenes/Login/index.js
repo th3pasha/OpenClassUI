@@ -12,7 +12,11 @@ import Container from '@material-ui/core/Container';
 import jwt from 'jwt-decode';
 import Cookies from 'universal-cookie';
 import Stack from '@mui/material/Stack';
+import InputAdornment from '@mui/material/InputAdornment';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import KeyIcon from '@mui/icons-material/Key';
 import Snackbar from '@mui/material/Snackbar';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import './style.css';
 
 
@@ -154,8 +158,8 @@ export default function SignIn() {
       <Container maxWidth="xs">
         <div className={classes.paper} style={{ padding: 20 }}>
           <Grid container className={classes.container}>
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
-              <Grid container spacing={3}>
+            <form className='form-props' noValidate onSubmit={handleSubmit}>
+              <Grid container spacing={3} >
                 <Grid item xs={12}>
                   <TextField
                     className="textfield"
@@ -166,6 +170,14 @@ export default function SignIn() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    color='error'
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <AccountCircle />
+                        </InputAdornment>
+                      ),
+                    }}
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                   />
@@ -181,12 +193,19 @@ export default function SignIn() {
                     label="Password"
                     name="Password"
                     autoComplete="password"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <KeyIcon />
+                        </InputAdornment>
+                      ),
+                    }}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                   />
                 </Grid>
               </Grid>
-              <Grid container justify="center" alignItems="center">
+              <Grid container justify="center" alignItems="center" >
                 <Button
                   type="submit"
                   fullWidth

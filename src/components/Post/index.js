@@ -1,9 +1,11 @@
 import React, { useNavigate,useState } from 'react';
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import SendIcon from '@mui/icons-material/Send';
 import Cookies from "universal-cookie";
 import axios from 'axios';
 
@@ -78,15 +80,21 @@ export default function Post({ avatarUrl }) {
                 />
             </CardContent>
             <CardActions>
+            <Grid item xs={4} />
+            <Grid item xs={4} />
+            <Grid item xs={4} container justify="flex-end">
+
                 {!isDisabled ?
                     <Button
                         className={classes.button}
                         variant="contained"
                         color="primary"
                         onClick={handlePostClick}
+                        endIcon={<SendIcon />}
                     >
                         Post
                     </Button> : (<Button
+                        endIcon={<SendIcon />}
                         className={classes.button}
                         variant="contained"
                         color="primary"
@@ -94,6 +102,7 @@ export default function Post({ avatarUrl }) {
                     >
                         Post
                     </Button>)}
+            </Grid>
             </CardActions>
             <Stack spacing={2} sx={{ width: '100%' }}>
                 <Snackbar open={isError} autoHideDuration={5000} onClose={handleClose}>

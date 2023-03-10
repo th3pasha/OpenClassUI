@@ -9,6 +9,7 @@ import Cookies from 'universal-cookie';
 import StudentsList from '../../components/Students';
 import Post from '../../components/Post';
 import Posts from '../../components/Posts';
+import Speed from '../../components/Speedial';
 import "./navbar.css";
 
 
@@ -96,7 +97,8 @@ export default function Home() {
               <StudentsList />
             </Grid>
           </Grid>
-        </Container>  
+        </Container>
+        <Speed/>
       </main>
     </div>
   );

@@ -11,6 +11,11 @@ import Container from '@material-ui/core/Container';
 import MuiAlert from '@mui/material/Alert';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import InputAdornment from '@mui/material/InputAdornment';
+import CakeIcon from '@mui/icons-material/Cake';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import BadgeIcon from '@mui/icons-material/Badge';
+import KeyIcon from '@mui/icons-material/Key';
 import './register.css';
 
 
@@ -50,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
     backgroundColor: '#4c9aff',
     color: 'white',
+    paddingLeft: '10px',
   },
   textField: {
     fontColor: 'white',
@@ -72,7 +78,7 @@ export default function emailForm() {
   const [last_name, setLastName] = useState('');
   const [isError, setError] = useState(false);
 
-  const [birthday, setBirthday] = useState('');
+  const [birthday, setBirthday] = useState(new Date());
 
   const [username, setUsername] = useState();
   const [secret, setSecret] = useState();
@@ -86,6 +92,7 @@ export default function emailForm() {
   const [isExists, setExists] = useState(false);
   const [isReg, setReg] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isFormEmpty, setFormEmpty] = useState(false);
 
   const handleProgressClose = () => {
     setOpen(false);
@@ -95,13 +102,12 @@ export default function emailForm() {
     setOpen(!open);
   };
 
-  const handleFinalProgressClick = () => 
-  {
-    handleProgressToggle();
+  const handleFinalProgressClick = () => {
+    setOpen(true);
     setTimeout(() => {
-      handleProgressClose();
+      setOpen(false);
       navigate('/home');
-    }, 400); 
+    }, 300);
   }
 
   const handleProgressClick = () => {
@@ -109,7 +115,7 @@ export default function emailForm() {
     setTimeout(() => {
       handleProgressClose();
       setError(true);
-    }, 300); 
+    }, 300);
   };
 
   const handleClose = (event, reason) => {
@@ -119,15 +125,21 @@ export default function emailForm() {
     setUmpMail(false);
     setExists(false);
     setReg(false);
+    setFormEmpty(false);
   };
 
-  const handleRegisterSubmit = (e) =>
-  {
+  const handleRegisterSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8080/v1/auth/register", {email, password, apogeeNum, birthday})
-    .then(response => {handleFinalProgressClick()})
-  }
+    console.log(birthday);
+    if (birthday !== '' && apogeeNum !== '' && password !== '') {
+      axios.post("http://localhost:8080/v1/auth/register", { email, password, apogeeNum, birthday })
+        .then(response => { handleFinalProgressClick() })
+    }
+    else {
+      setFormEmpty(true);
+    }
 
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -175,6 +187,13 @@ export default function emailForm() {
                       label="Email Address"
                       name="email"
                       autoComplete="email"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AlternateEmailIcon />
+                          </InputAdornment>
+                        ),
+                      }}
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                     />
@@ -263,6 +282,13 @@ export default function emailForm() {
                   fullWidth
                   variant="outlined"
                   type="password"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <KeyIcon />
+                      </InputAdornment>
+                    ),
+                  }}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                 />
@@ -270,12 +296,21 @@ export default function emailForm() {
               <Grid item xs={12} sm={4}>
                 <TextField
                   required
+                  InputLabelProps={{ shrink: true }}
                   id="Birthday"
-                  label="Birthday *"
+                  label="Birthday"
                   fullWidth
                   variant="outlined"
                   type="date"
+                  format="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
                   value={birthday}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <CakeIcon />
+                      </InputAdornment>
+                    ),
+                  }}
                   onChange={e => setBirthday(e.target.value)}
                 />
               </Grid>
@@ -286,13 +321,21 @@ export default function emailForm() {
                   label="Apogee Number"
                   fullWidth
                   variant="outlined"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <BadgeIcon />
+                      </InputAdornment>
+                    ),
+                  }}
                   value={apogeeNum}
                   onChange={e => setApogeeNum(e.target.value)}
                 />
               </Grid>
-
-              <Grid item xs={12}>
-                <Button variant="contained" color="primary" type="submit">
+              <Grid item xs={4} />
+              <Grid item xs={4} />
+              <Grid item xs={4} container justify="flex-end">
+                <Button variant="contained" color="primary" type="submit" className='signup-button'>
                   Sign up
                 </Button>
               </Grid>
@@ -314,6 +357,11 @@ export default function emailForm() {
         <Snackbar open={isExists} autoHideDuration={5000} onClose={handleClose}>
           <Alert variant="filled" color="error" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
             Account already exists, try to sign in instead
+          </Alert>
+        </Snackbar>
+        <Snackbar open={isFormEmpty} autoHideDuration={5000} onClose={handleClose}>
+          <Alert variant="filled" color="warning" onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+            Please fill in all the forms to continue.
           </Alert>
         </Snackbar>
       </Stack>

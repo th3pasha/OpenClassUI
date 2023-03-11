@@ -1,7 +1,8 @@
-import React, { useNavigate,useState } from 'react';
+import React, { useState } from 'react';
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -27,8 +28,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Post({ avatarUrl }) {
+export default function Post() {
     const classes = useStyles();
+    const navigate = useNavigate();
     const [content, setContent] = useState('');
     const [isDisabled, setDisabled] = useState(false);
     const [isError, setError] = useState(false);
@@ -53,6 +55,7 @@ export default function Post({ avatarUrl }) {
                 .then(response => {
                     setContent('');
                     setDisabled(true);
+                    navigate('/');
                 })
         }
         else 
@@ -64,7 +67,7 @@ export default function Post({ avatarUrl }) {
     return (
         <Card className={classes.root}>
             <CardHeader
-                avatar={<Avatar src={avatarUrl} />}
+                avatar={<Avatar/>}
                 title="Create a Post"
             />
             <CardContent>

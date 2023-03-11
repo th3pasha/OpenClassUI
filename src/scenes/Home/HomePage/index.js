@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../../Navbar';
 import StudentInfo from '../../../components/StudentInfo/StudentInfo';
 import Speed from '../../../components/Speedial';
+import './homepage.css';
 
 export default function HomePage() {
   return (
@@ -9,7 +10,7 @@ export default function HomePage() {
     <div>
       <header>
         <Navbar />
-        <div>
+        <div className='speedial'>
           <Speed />
         </div>
       </header>

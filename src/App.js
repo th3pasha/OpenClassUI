@@ -13,7 +13,6 @@ const Students = lazy(() => import("./components/Students"));
 const Post = lazy(() => import('./components/Post'));
 const Posts = lazy(() => import('./components/Posts'));
 
-const Speed = lazy(() => import('./components/Speedial'));
 const Appbar = lazy(() => import('./components/Appbar'));
 
 function App() {
@@ -32,8 +31,6 @@ function App() {
             <Route path="/students" element={<Students />}></Route>
             <Route path="/post" element={<Post />}></Route>
             <Route path="/posts" element={<Posts />}></Route>
-
-            <Route path="/speed" element={<Speed />}></Route>
 
             <Route path='/appbar' element={<Appbar />}></Route>
 

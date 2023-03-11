@@ -80,12 +80,12 @@ export default function Home() {
       <main>
         <Container maxWidth="lg">
           <Grid container spacing={5}>
-            <Grid item xs={15} md={3}>
+            <Grid item xs={15} md={3} sx={{position:'fixed', top: '2' , left: '0'}}>
               <StudentInfo />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={20} md={16}>
               <Grid container spacing={5}>
-                <Grid item xs={12} md={30}>
+                <Grid item xs={20} md={30}>
                   <Post />
                 </Grid>
                 <Grid item xs={12} md={18}>
@@ -93,12 +93,11 @@ export default function Home() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} sx={{position:'fixed', top: '2' , right: '0'}}>
               <StudentsList />
             </Grid>
           </Grid>
         </Container>
-        <Speed/>
       </main>
     </div>
   );

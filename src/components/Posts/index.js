@@ -33,6 +33,10 @@ export default function Posts() {
             });
     }, []);
 
+    useEffect(() => {
+
+    }, []);
+
     return (
         <Card className={classes.root}>
             <CardContent>

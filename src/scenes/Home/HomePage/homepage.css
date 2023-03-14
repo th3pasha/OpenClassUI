@@ -1,4 +1,108 @@
-.speedial
+*
 {
-    
+  font-family: 'JetBrains Mono'!important;
+}
+
+html::-webkit-scrollbar
+{
+ width: 10px !important;
+}
+html::-webkit-scrollbar-thumb
+{
+ background-color: #CCC;
+}
+html::-webkit-scrollbar-track
+{
+  background-color: rgb(40,43,54);
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.MuiButtonBase-root
+{
+  font-family: "JetBrains Mono";
+}
+
+.nav 
+{
+  width: 100%;
+  color: #fff;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+}
+
+.nav-item {
+  font-family: "JetBrains Mono";
+  margin: 0 10px;
+}
+
+.nav-item a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.main 
+{
+  margin-top: 2px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.post
+{
+  top: 15 !important;
+}
+
+
+.description {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.explore-button {
+  font-size: 20px;
+  font-family: "JetBrains Mono";
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #36393F;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.explore-button:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+.footer 
+{
+  width: 100%;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer p {
+  margin: 0;
 }

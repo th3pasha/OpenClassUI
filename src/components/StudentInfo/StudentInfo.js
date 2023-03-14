@@ -29,6 +29,8 @@ export default function StudentInfo() {
     const classes = useStyles();
     const [first_name, setFirstName] = useState();
     const [last_name, setLastName] = useState();
+    const [email, setEmail] = useState();
+    const [apogeeNum, setApogeeNum] = useState();
 
 
     useEffect(() => {
@@ -37,6 +39,8 @@ export default function StudentInfo() {
             .then(response => {
                 setLastName(response.data.lastName);
                 setFirstName(response.data.firstName);
+                setEmail(response.data.email);
+                setApogeeNum(response.data.apogeeNum);
             })
             .catch(error => {
                 console.error(error);
@@ -47,8 +51,10 @@ export default function StudentInfo() {
     return (
         <div>
             <div className="userinfo">
-                <Avatar alt={first_name} src="/path/to/avatar.jpg" className="avatar" />
+                <Avatar alt={first_name} className="avatar"/>
                 <Typography variant="h6">{first_name} {last_name}</Typography>
+                <Typography variant="h7">{email}</Typography>
+                <Typography variant="h7">{apogeeNum}</Typography>
             </div>
             <div>
 

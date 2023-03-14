@@ -6,8 +6,16 @@
     height: 250px;
     border-radius: 15px;
 }
-.avatar
+.avatar 
 {
-    width: 25px;
-    height: 25px;
+    margin-right: 16px !important;
 }
+  
+  h6 {
+    margin: 0;
+  }
+  
+  h7 {
+    margin: 0;
+    opacity: 0.6;
+  }

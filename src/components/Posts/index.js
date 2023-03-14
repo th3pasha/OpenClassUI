@@ -9,9 +9,10 @@ import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 600,
+        maxWidth: 800,
         borderRadius: '15px',
         margin: '0 auto',
+        backgroundColor:'rgb(62,64,75)',
     },
     textField: {
         marginTop: theme.spacing(2),
@@ -23,47 +24,49 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Posts() {
     const classes = useStyles();
+    const [data, setData] = useState([]);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/v1/auth/posts")
+        axios.get("http://localhost:8080/v1/auth/student")
             .then((response) => {
-                setPosts(response.data.content);
-                console.log(response.data);
+                setData(response.data.content);
             });
-    }, []);
-
-    useEffect(() => {
-
     }, []);
 
     return (
         <Card className={classes.root}>
             <CardContent>
-                {posts.map((post) => (
-                    <Card className={classes.post}>
-                        <CardHeader
-                            avatar={<Avatar alt='A' />}
-                            title={post.id}
-                            subheader="now"
-                        />
-                        <CardContent>
-                            {post.content}
-                        </CardContent>
-                        <CardActions>
-                            <Stack direction="row" spacing={2}>
-                                <IconButton>
-                                    <ThumbUpIcon/>
-                                </IconButton>
-                                <IconButton>
-                                    <ThumbDownIcon/>
-                                </IconButton>
-                            </Stack>
-                        </CardActions>
-                    </Card>
-    ))
-}
-            </CardContent >
-        </Card >
+                {data.map((user) => {
+                    if (user.posts.length > 0) {
+                        return user.posts.map((post) => (
+                            <React.Fragment key={post.id}>
+                                <Card className={classes.post} key={post.id}>
+                                    <CardHeader
+                                        avatar={<Avatar alt='' />}
+                                        title={user.firstName + ' ' + user.lastName}
+                                        subheader="now"
+                                    />
+                                    <CardContent>{post.content}</CardContent>
+                                </Card>
+                                <CardActions>
+                                    <Stack direction="row" spacing={2}>
+                                        <IconButton>
+                                            <ThumbUpIcon />
+                                        </IconButton>
+                                        <IconButton>
+                                            <ThumbDownIcon />
+                                        </IconButton>
+                                    </Stack>
+                                </CardActions>
+                            </React.Fragment>
+                        ));
+                    } else {
+                        return null;
+                    }
+                })}
+            </CardContent>
+        </Card>
+
     );
 }

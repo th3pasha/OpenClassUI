@@ -14,6 +14,7 @@ const Post = lazy(() => import('./components/Post'));
 const Posts = lazy(() => import('./components/Posts'));
 
 const Appbar = lazy(() => import('./components/Appbar'));
+const LoginForm = lazy(()=> import('./components/Login'));
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
             <Route path="/posts" element={<Posts />}></Route>
 
             <Route path='/appbar' element={<Appbar />}></Route>
-
+            <Route path='/loginform' element={<LoginForm />}></Route>
           </Routes>
         </BrowserRouter>
       </div>

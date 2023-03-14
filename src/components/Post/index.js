@@ -9,6 +9,7 @@ import MuiAlert from '@mui/material/Alert';
 import SendIcon from '@mui/icons-material/Send';
 import Cookies from "universal-cookie";
 import axios from 'axios';
+import './post.css';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -19,9 +20,11 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 600,
         borderRadius: '15px',
         margin: '0 auto',
+        backgroundColor:'#3e404b',
     },
     textField: {
         marginTop: theme.spacing(2),
+        color:'white',
     },
     button: {
         marginTop: theme.spacing(2),
@@ -69,6 +72,7 @@ export default function Post() {
             <CardHeader
                 avatar={<Avatar/>}
                 title="Create a Post"
+                color='white'
             />
             <CardContent>
                 <TextField
@@ -78,6 +82,11 @@ export default function Post() {
                     rows={4}
                     variant="outlined"
                     fullWidth
+                    sx={{
+                        "& .MuiInputBase-root": {
+                            color: 'white'
+                        }
+                    }}
                     value={content}
                     onChange={handlePostContentChange}
                 />

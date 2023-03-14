@@ -3,9 +3,8 @@ import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import './students.css';
 import { List, ListItem, ListItemText } from "@material-ui/core";
-
+import './students.css';
 
 export default function Student() {
 
@@ -28,17 +27,18 @@ export default function Student() {
             color='black'
             variant="h6"
             fontWeight="500"
+            backgroundColor='rgb(62,64,75)'
             sx={{ mb: "1.5rem" }}
         >
                Students
         </Typography>
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'rgb(62,64,75)' }}>
                 {users.map((user) =>
                     <ListItem alignItems="flex-start">
                         <Avatar alt={user.firstName} />
                         <ListItemText primary={user.firstName || user.lastName} secondary={<React.Fragment>
                             <Typography
-                                sx={{ display: 'inline', fontColor:"black"}}
+                                sx={{ display: 'inline', fontColor:"black", right:'150'}}
                                 component="span"
                                 variant="body2"
                                 

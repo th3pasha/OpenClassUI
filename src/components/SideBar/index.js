@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
 import { IconButton, List, ListItem, ListItemText, Avatar, Typography, ListItemIcon } from '@material-ui/core';
 import Cookies from 'universal-cookie';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import HomeIcon from '@mui/icons-material/Home';
 import ThreePIcon from '@mui/icons-material/ThreeP';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -22,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
     margin: 10,
     top: 300,
     borderRadius: '15px',
-    
+
   },
   listItemIcon: {
     fontSize: 'large',
-    color:'white',
+    color: 'white',
     '&:hover': {
       color: theme.palette.primary.main,
       cursor: 'pointer',
@@ -46,12 +48,12 @@ const useStyles = makeStyles((theme) => ({
     width: 50,
     height: 50,
     margin: 25,
-    top : 580,
+    top: 40,
   },
   logout: {
-    top : 550,
+    position: 'fixed',
     margin: 30,
-    color:'white',
+    color: 'white',
   },
   sidebar: {
     position: 'fixed',
@@ -64,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     overflowY: 'auto',
   },
+  profile:{
+    position: 'fixed',
+    top : 780,
+  },
 }));
 
 export default function Sidebar() {
@@ -71,13 +77,30 @@ export default function Sidebar() {
   const [user, setUser] = useState('');
   const cookies = new Cookies();
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
 
-  function handleLogout()
-  {
+
+  const handleProgressClose = () => {
+    setOpen(false);
+  };
+
+  const handleProgressToggle = () => {
+    setOpen(!open);
+  };
+
+  const handleProgressClick = () => {
+    handleProgressToggle();
+    handleLogout();
+    setTimeout(() => {
+      handleProgressClose();
+      navigate('/')
+    }, 500);
+  };
+
+  function handleLogout() {
     setUser(null);
     cookies.remove('token');
     cookies.remove('userid');
-    navigate('/');
   }
 
   return (
@@ -102,12 +125,19 @@ export default function Sidebar() {
             </ListItem>
           </List>
         </div>
-        <div className={classes.profile}>
+        <div className={classes.profile}>  
           <Avatar className={classes.avatar}>U</Avatar>
-          <IconButton aria-label="sign out" className={classes.logout} onClick={handleLogout}>
+          <IconButton aria-label="sign out" className={classes.logout} onClick={handleProgressClick}>
             <LogoutIcon />
           </IconButton>
         </div>
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+          onClick={handleProgressClose}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </div>
     </div>
   );

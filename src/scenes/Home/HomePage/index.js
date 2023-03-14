@@ -27,7 +27,7 @@ export default function HomePage() {
                 <Grid item xs={20} md={30} className="post">
                   <Post />
                 </Grid>
-                <Grid item xs={12} md={18}>
+                <Grid item xs={16} md={18}>
                   <Posts />
                 </Grid>
               </Grid>

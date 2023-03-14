@@ -25,7 +25,7 @@ html::-webkit-scrollbar-track
 
 .MuiButtonBase-root
 {
-  font-family: "JetBrains Mono";
+  font-family: "JetBrains Mono" !important;
 }
 
 .nav 

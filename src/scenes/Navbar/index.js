@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button } from '@mui/material';
-import StudentInfo from '../../components/StudentInfo/StudentInfo';
+import StudentInfo from '../../components/StudentInfo';
 import { Box, Container, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';

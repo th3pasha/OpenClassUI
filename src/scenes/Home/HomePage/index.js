@@ -1,5 +1,5 @@
 import React from 'react';
-import StudentInfo from '../../../components/StudentInfo/StudentInfo';
+import StudentInfo from '../../../components/StudentInfo';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid } from '@mui/material';
 import StudentsList from '../../../components/Students';

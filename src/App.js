@@ -29,13 +29,8 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/openchat" element={<OpenChat />}></Route>
-
-            <Route path="/students" element={<Students />}></Route>
-            <Route path="/post" element={<Post />}></Route>
-            <Route path="/posts" element={<Posts />}></Route>
             <Route path='/account' element={<Account />}></Route>
-
-            <Route path='/appbar' element={<Appbar />}></Route>
+            
             <Route path='/loginform' element={<LoginForm />}></Route>
           </Routes>
         </BrowserRouter>

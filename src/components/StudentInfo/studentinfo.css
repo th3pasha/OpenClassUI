@@ -1,6 +1,6 @@
 .userinfo
 {
-    background-color: white;
+    background-color: rgb(62,64,75);
     display: flex;
     width: 250px;
     height: 250px;
@@ -11,11 +11,3 @@
     margin-right: 16px !important;
 }
   
-  h6 {
-    margin: 0;
-  }
-  
-  h7 {
-    margin: 0;
-    opacity: 0.6;
-  }

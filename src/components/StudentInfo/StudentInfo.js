@@ -51,7 +51,7 @@ export default function StudentInfo() {
     return (
         <div>
             <div className="userinfo">
-                <Avatar alt={first_name} className="avatar"/>
+                <Avatar></Avatar>
                 <Typography variant="h6">{first_name} {last_name}</Typography>
                 <Typography variant="h7">{email}</Typography>
                 <Typography variant="h7">{apogeeNum}</Typography>

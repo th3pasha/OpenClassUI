@@ -21,14 +21,14 @@ export default function Student() {
     return (
         <Box  sx={{
             borderRadius: '15px',
-            backgroundColor: 'white',
+            backgroundColor: 'rgb(62,64,75)',
           }}>
             <Typography
             color='black'
             variant="h6"
             fontWeight="500"
             backgroundColor='rgb(62,64,75)'
-            sx={{ mb: "1.5rem" }}
+            sx={{ mb: "1.5rem", borderRadius: '15px', top:"1.5rem" }}
         >
                Students
         </Typography>

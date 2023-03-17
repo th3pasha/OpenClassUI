@@ -17,10 +17,10 @@ const actions = [
 
 export default function BasicSpeedDial() {
   return (
-    <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+    <Box sx={{ position: 'fixed', top:'67vh', left:'190vh', height: 200, transform: 'translateZ(0px)', flexGrow: 1 }}>
       <SpeedDial
         ariaLabel="SpeedDial basic example"
-        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+        sx={{ bottom: '43vh', right: 16 }}
         icon={<SpeedDialIcon />}
       >
         {actions.map((action) => (

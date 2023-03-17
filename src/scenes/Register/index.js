@@ -78,15 +78,9 @@ export default function emailForm() {
   const [last_name, setLastName] = useState('');
   const [isError, setError] = useState(false);
 
-  const [birthday, setBirthday] = useState(new Date());
-
-  const [username, setUsername] = useState();
-  const [secret, setSecret] = useState();
-  const [isSuccess, setSuccess] = useState(false);
-  const [age, setAge] = useState('');
-
+  const [birthday, setBirthday] = useState('');
   const [apogeeNum, setApogeeNum] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword]= useState('');
 
   const [isUmpMail, setUmpMail] = useState(false);
   const [isExists, setExists] = useState(false);
@@ -130,10 +124,20 @@ export default function emailForm() {
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
-    console.log(birthday);
     if (birthday !== '' && apogeeNum !== '' && password !== '') {
-      axios.post("http://localhost:8080/v1/auth/register", { email, password, apogeeNum, birthday })
-        .then(response => { handleFinalProgressClick() })
+    
+    axios.post("http://localhost:8080/v1/auth/register", { email, password, apogeeNum, birthday })
+        .then(response => {
+          let username = email;
+          let secret = apogeeNum;
+
+          axios.post("http://localhost:8080/v1/auth/openchat/register", { username, secret, email, first_name, last_name })
+            .then(r => {
+              handleFinalProgressClick()
+            }).catch(error => {console.error(error)});
+          
+        })
+        
     }
     else {
       setFormEmpty(true);
@@ -172,6 +176,13 @@ export default function emailForm() {
   return (
     <div>
       {!isError ? (<div className={classes.body}>
+        <Backdrop
+              sx={{ color: '#fff', position:'absolute',zIndex: (theme) => theme.zIndex.drawer + 1 }}
+              open={open}
+              onClick={handleProgressClose}
+            >
+              <CircularProgress color="inherit" />
+            </Backdrop>
         <Container maxWidth="xs">
           <div className={classes.paper} style={{ padding: 20 }}>
             <Grid container className={classes.container}>
@@ -211,13 +222,6 @@ export default function emailForm() {
                 </Grid>
               </form>
             </Grid>
-            <Backdrop
-              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={open}
-              onClick={handleProgressClose}
-            >
-              <CircularProgress color="inherit" />
-            </Backdrop>
           </div>
           <Stack spacing={2} sx={{ width: '100%' }}>
             <Snackbar open={isUmpMail} autoHideDuration={5000} onClose={handleClose}>

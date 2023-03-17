@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 600,
         borderRadius: '15px',
         margin: '0 auto',
+        height:'26vh',
         backgroundColor:'#3e404b',
     },
     textField: {
-        marginTop: theme.spacing(2),
-        color:'white',
+        marginTop: theme.spacing(0),
     },
     button: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(0),
     },
 }));
 
@@ -58,7 +58,6 @@ export default function Post() {
                 .then(response => {
                     setContent('');
                     setDisabled(true);
-                    navigate('/');
                 })
         }
         else 
@@ -79,7 +78,7 @@ export default function Post() {
                     className={classes.textField}
                     label="What's on your mind?"
                     multiline
-                    rows={4}
+                    rows={3}
                     variant="outlined"
                     fullWidth
                     sx={{

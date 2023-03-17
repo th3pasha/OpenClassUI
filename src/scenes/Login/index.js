@@ -14,7 +14,6 @@ import Cookies from 'universal-cookie';
 import Stack from '@mui/material/Stack';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import KeyIcon from '@mui/icons-material/Key';
 import Snackbar from '@mui/material/Snackbar';
 
@@ -80,7 +79,6 @@ export default function SignIn() {
   const [isError, setError] = useState(false);
 
   const [open, setOpen] = React.useState(false);
-
 
   const handleProgressClose = () => {
     setOpen(false);

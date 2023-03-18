@@ -8,18 +8,14 @@ const Login = lazy(() => import("./scenes/Login"));
 const Register = lazy(() => import("./scenes/Register"));
 const Home = lazy(() => import("./scenes/Home"));
 const NotFound = lazy(() => import("./scenes/NotFound"));
-const Students = lazy(() => import("./components/Students"));
-const Post = lazy(() => import('./components/Post'));
-const Posts = lazy(() => import('./components/Posts'));
 const Account = lazy(() => import('./scenes/Account'));
 
-const Appbar = lazy(() => import('./components/Appbar'));
 const LoginForm = lazy(() => import('./components/Login'));
 
 function App() {
 
   return (
-    <div className="App" style={{ backgroundColor: "rgb(40,43,54)" }}>
+    <div className="App" style={{ backgroundColor: "rgb(40,43,54)", fontFamily:'JetBrains Mono' }}>
       <div>
         <BrowserRouter>
           <Routes>
@@ -30,7 +26,7 @@ function App() {
             <Route path="/home" element={<Home />}></Route>
             <Route path="/openchat" element={<OpenChat />}></Route>
             <Route path='/account' element={<Account />}></Route>
-            
+
             <Route path='/loginform' element={<LoginForm />}></Route>
           </Routes>
         </BrowserRouter>

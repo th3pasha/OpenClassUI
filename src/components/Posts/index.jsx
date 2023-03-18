@@ -7,6 +7,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import axios from 'axios';
 import { Container } from '@mui/material';
+import test from './tsst.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,6 +33,13 @@ const useStyles = makeStyles((theme) => ({
     div:
     {
         width: '70vh',
+    },
+    img:
+    {
+        position :'relative',
+        top:'5px',
+        width:'1200px',
+        height:'630px',
     },
     
 }));
@@ -64,7 +72,10 @@ export default function Posts() {
                                                 subheader="now"
                                                 className={classes.cardheader}
                                             />
-                                            <CardContent className={classes.postcontent}>{post.content}</CardContent>
+                                            <CardContent className={classes.postcontent}>
+                                                {post.content}
+                                                {<img className={classes.img} src={test}></img>}
+                                            </CardContent>
                                         </Card>
                                         <CardActions>
                                             <Stack direction="row" spacing={2}>

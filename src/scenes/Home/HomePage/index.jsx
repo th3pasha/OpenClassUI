@@ -6,7 +6,6 @@ import StudentsList from '../../../components/Students';
 import Post from '../../../components/Post';
 import Posts from '../../../components/Posts';
 import Speed from '../../../components/Speedial';
-import Appbar from '../../../components/Appbar';
 import Sidebar from '../../../components/SideBar';
 import './homepage.css';
 

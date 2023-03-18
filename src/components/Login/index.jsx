@@ -21,10 +21,10 @@ export default function App() {
             py: 3, // padding top & bottom
             px: 2, // padding left & right
             display: 'flex',
+            backgroundColor: '#BDBDBD',
             flexDirection: 'column',
             gap: 2,
             borderRadius: 'sm',
-            boxShadow: 'md',
           }}
           variant="outlined"
         >
@@ -40,7 +40,7 @@ export default function App() {
               // html input attribute
               name="email"
               type="email"
-              placeholder="johndoe@email.com"
+              placeholder="john.doe21@ump.ac.ma"
             />
           </FormControl>
           <FormControl>

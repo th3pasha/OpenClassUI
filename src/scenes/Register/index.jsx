@@ -161,8 +161,8 @@ export default function emailForm() {
           if (response.status === 200) {
             handleProgressClick();
             setReg(true)
-            setFirstName(response.data.firstName);
             setLastName(response.data.lastName);
+            setFirstName(response.data.firstName);
           }
         })
         .catch(setExists(true))

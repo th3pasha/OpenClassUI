@@ -3,6 +3,11 @@ import Stack from '@mui/material/Stack';
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, TextField } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import axios from 'axios';
@@ -36,12 +41,15 @@ const useStyles = makeStyles((theme) => ({
     },
     img:
     {
-        position :'relative',
-        top:'5px',
-        width:'1200px',
-        height:'630px',
+        position: 'relative',
+        top: '5px',
+        width: '1200px',
+        height: '630px',
     },
-    
+    comments:
+    {
+        backgroundColor:'rgb(62,64,75)',
+    },
 }));
 
 export default function Posts() {
@@ -86,6 +94,21 @@ export default function Posts() {
                                                     <ThumbDownIcon />
                                                 </IconButton>
                                             </Stack>
+                                            <Accordion sx={{backgroundColor: 'inherit'}}>
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                >
+                                                    <Typography>Comments</Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <Typography>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                    </Typography>
+                                                </AccordionDetails>
+                                            </Accordion>
                                         </CardActions>
                                     </React.Fragment>
                                 </CardContent>

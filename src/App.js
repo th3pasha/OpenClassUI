@@ -1,6 +1,5 @@
 import React, { lazy } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import OpenChat from "./scenes/Openchat";
 import './App.css';
 
 const Main = lazy(() => import("./scenes/Main"));
@@ -9,8 +8,7 @@ const Register = lazy(() => import("./scenes/Register"));
 const Home = lazy(() => import("./scenes/Home"));
 const NotFound = lazy(() => import("./scenes/NotFound"));
 const Account = lazy(() => import('./scenes/Account'));
-
-const LoginForm = lazy(() => import('./components/Login'));
+const OpenChat = lazy(() => import("./scenes/Openchat"));
 
 function App() {
 
@@ -26,8 +24,6 @@ function App() {
             <Route path="/home" element={<Home />}></Route>
             <Route path="/openchat" element={<OpenChat />}></Route>
             <Route path='/account' element={<Account />}></Route>
-
-            <Route path='/loginform' element={<LoginForm />}></Route>
           </Routes>
         </BrowserRouter>
       </div>

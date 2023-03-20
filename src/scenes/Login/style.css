@@ -1,9 +1,7 @@
-.MuiTextField-root
+form 
 {
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-}
-.form-props
-{
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }

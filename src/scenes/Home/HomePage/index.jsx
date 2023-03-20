@@ -1,31 +1,28 @@
 import React from 'react';
 import StudentInfo from '../../../components/StudentInfo';
-import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid } from '@mui/material';
-import StudentsList from '../../../components/Students';
+import StudentsList from '../../../components/StudentsList';
 import Post from '../../../components/Post';
 import Posts from '../../../components/Posts';
 import Speed from '../../../components/Speedial';
 import Sidebar from '../../../components/SideBar';
+import Marketing from '../../../components/Marketing';
 import './homepage.css';
 
-const useStyles = makeStyles((theme) => ({
-}));
 
 export default function HomePage() {
-
-  const classes = useStyles();
-
 
   return (
     <div className='homepageclass'>
       <header>
         <Sidebar />
       </header>
-      <main className={classes.main}>
+      <main>
         <div className='mainpageclass'>
           <div className='studentinfo'>
             <StudentInfo />
+          </div>
+          <div className='marketing-overview'>
+            <Marketing />
           </div>
           <div className='post'>
             <Post />
@@ -36,11 +33,11 @@ export default function HomePage() {
           <div className='studentslist'>
             <StudentsList />
           </div>
-            <Speed />
+          <Speed />
         </div>
       </main>
       <footer>
-          
+
       </footer>
     </div>
 

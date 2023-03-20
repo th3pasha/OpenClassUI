@@ -93,30 +93,39 @@ html::-webkit-scrollbar-track
   background-color: inherit;
 }
 
-
-
 .homepageclass
 {
   background-color: inherit;
   min-height: 100vh;
 }
+
 .mainpageclass {
   display: flex;
   justify-content: space-between;
   top: 15vh;
   height: auto;
 }
+
 .mainclass
 {
   display: block;
   background-color: inherit;
   height: auto;
 }
+
 .studentinfo
 {
   width: 30%;
   position: fixed;
   top : 5vh;
+  left: 15vh;
+}
+
+.marketing-overview
+{
+  width: 100%;
+  position: fixed;
+  top: 40vh;
   left: 15vh;
 }
 

@@ -11,8 +11,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import axios from 'axios';
+import './posts.css';
 import { Container } from '@mui/material';
-import test from './tsst.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,28 +39,36 @@ const useStyles = makeStyles((theme) => ({
     {
         width: '70vh',
     },
-    img:
-    {
-        position: 'relative',
-        top: '5px',
-        width: '1200px',
-        height: '630px',
-    },
     comments:
     {
-        backgroundColor:'rgb(62,64,75)',
+        backgroundColor: 'rgb(62,64,75)',
     },
 }));
 
 export default function Posts() {
     const classes = useStyles();
     const [data, setData] = useState([]);
-    const [posts, setPosts] = useState([]);
+    const [image, setImages] = useState([]);
+    const [isFullScreen, setIsFullScreen] = useState(false);
+
+    const toggleFullScreen = () => {
+        setIsFullScreen(!isFullScreen);
+    }
+    
 
     useEffect(() => {
         axios.get("http://localhost:8080/v1/auth/student")
             .then((response) => {
                 setData(response.data.content);
+            });
+        axios.get("http://localhost:8080/v1/auth/student/files", {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then((response) => {
+                const images = response.data;
+                setImages(images);
             });
     }, []);
 
@@ -82,7 +90,15 @@ export default function Posts() {
                                             />
                                             <CardContent className={classes.postcontent}>
                                                 {post.content}
-                                                {<img className={classes.img} src={test}></img>}
+                                                {image.map(image => (
+                                                <img 
+                                                    className={isFullScreen ? "full-screen" : "normal-screen" }
+                                                    src={image.url} 
+                                                    alt={image.name} 
+                                                    key={image.id} 
+                                                    onClick={toggleFullScreen}
+                                                />
+                                                ))}
                                             </CardContent>
                                         </Card>
                                         <CardActions>
@@ -94,7 +110,7 @@ export default function Posts() {
                                                     <ThumbDownIcon />
                                                 </IconButton>
                                             </Stack>
-                                            <Accordion sx={{backgroundColor: 'inherit'}}>
+                                            <Accordion sx={{ backgroundColor: 'inherit' }}>
                                                 <AccordionSummary
                                                     expandIcon={<ExpandMoreIcon />}
                                                     aria-controls="panel1a-content"
@@ -121,6 +137,6 @@ export default function Posts() {
                 }
             })}
 
-        </div>
+        </div >
     );
 }

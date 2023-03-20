@@ -4,6 +4,7 @@ import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Cookies from "universal-cookie";
 import Box from '@mui/material/Box';
+import Chip from '@mui/joy/Chip';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -57,6 +58,13 @@ export default function StudentInfo() {
             {isFetched ? (<Card variant="outlined" sx={{ backgroundColor: 'rgb(62,64,75)', display: 'flex', borderRadius: '15px', width: '250px', height: '250px' }}>
                 <React.Fragment>
                     <CardContent>
+                        <Chip
+                            size="sm"
+                            variant="soft"
+                            sx={{ alignSelf: 'flex-start', borderRadius: 'xl' }}
+                        >
+                            DAI
+                        </Chip>
                         <Avatar></Avatar>
                         <Typography variant="h7" component="div">
                             {first_name} {last_name}

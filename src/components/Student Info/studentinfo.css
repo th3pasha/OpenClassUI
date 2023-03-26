@@ -1,0 +1,13 @@
+.userinfo
+{
+    background-color: rgb(62,64,75);
+    display: flex;
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+}
+.avatar 
+{
+    margin-right: 16px !important;
+}
+  

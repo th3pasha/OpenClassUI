@@ -11,7 +11,7 @@ import TabPanel from '@mui/joy/TabPanel';
 import Avatarzone from '../../components/Dropzone/Avatar';
 import { Box, Chip, Typography, IconButton, Button } from '@mui/joy';
 import Cookies from "universal-cookie";
-
+import Security from '../../components/Tabs/Security';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     tabs:
     {
-        top: '15vh',
+        top: '23vh',
         left: '35vh',
         backgroundColor: '#343A46',
     },
@@ -119,11 +119,11 @@ export default function Account() {
                 <Box className={classes.box} sx={{ width: 350, height: 350 }}>
                     <Avatarzone />
                 </Box>
-                <Tabs className={classes.tabs} defaultValue={0} sx={{ borderRadius: '15px', backgroundColor: '#343A46',  width: 450, height: 450 }}>
+                <Tabs className={classes.tabs} defaultValue={0} sx={{ borderRadius: '15px', backgroundColor: '#343A46',  width: 800, height: 500 }}>
                     <TabList sx={{ borderRadius: '15px', backgroundColor: '#343A46' }}>
-                        <Tab>First tab</Tab>
-                        <Tab>Second tab</Tab>
-                        <Tab>Third tab</Tab>
+                        <Tab>Activity</Tab>
+                        <Tab>Informations</Tab>
+                        <Tab>Security</Tab>
                     </TabList>
                     <TabPanel>
 
@@ -132,7 +132,7 @@ export default function Account() {
                         <b>Second</b> tab panel
                     </TabPanel>
                     <TabPanel value={2} sx={{ p: 2 }}>
-                        <b>Third</b> tab panel
+                        <Security />
                     </TabPanel>
                 </Tabs>
             </div>

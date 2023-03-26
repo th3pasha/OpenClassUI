@@ -20,7 +20,7 @@ export default function Home()
                 <tr>
                     <td>
                         <h1 className="title" style={{fontSize: "70px" , color:"#3f51b5"}}> ERROR 404 </h1>
-                        <p className="description" style={{ color:"#3f51b5"}}>The requested page does not exist </p>   
+                        <p className="description" style={{ color:"#3f51b5"}}>The requested page does not exist, please join from the selected routes</p>   
                     </td>
                 </tr>
             </table>

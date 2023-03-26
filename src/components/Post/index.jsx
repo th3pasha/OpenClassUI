@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -21,13 +21,19 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '15px',
         margin: '0 auto',
         height:'26vh',
-        backgroundColor:'#3e404b',
+        backgroundColor:'#343A46',
     },
-    textField: {
-        marginTop: theme.spacing(0),
+
+    textField:
+    {
     },
     button: {
         marginTop: theme.spacing(0),
+        backgroundColor:'#096DBE'
+    },
+    header:
+    {
+        color:'#EBECF0',
     },
 }));
 
@@ -37,9 +43,37 @@ export default function Post() {
     const [content, setContent] = useState('');
     const [isDisabled, setDisabled] = useState(false);
     const [isError, setError] = useState(false);
+    const [first_name, setFirstName] = useState('');
+    const [isFetched, setFetched] = useState('');
+    const [imagesUrl, setImages] = useState(null);
 
     const cookies = new Cookies();
     const id = cookies.get('userid');
+
+    const fetchAvatar = async () => {
+        await axios
+          .get("http://localhost:8080/v1/auth/student/files")
+          .then((response) => {
+            setImages(response.data);
+            setFetched(true);    
+        
+          });
+      }
+    
+      const fetchName = async() =>
+      {
+        await axios
+          .get('http://localhost:8080/v1/auth/student/' + id)
+          .then(response => { 
+            setFirstName(response.data.lastName.toUpperCase());
+            setFetched(false); })
+      }
+    
+      useEffect(() => {
+        fetchAvatar();
+        fetchName();
+      }, []);
+    
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -69,9 +103,9 @@ export default function Post() {
     return (
         <Card className={classes.root}>
             <CardHeader
-                avatar={<Avatar/>}
+                avatar={isFetched ? (<Avatar className={classes.avatar} src={imagesUrl} />) : (<Avatar className={classes.avatar}>{Array.from(first_name)[0]}</Avatar>)}
                 title="Create a Post"
-                color='white'
+                className={classes.header}
             />
             <CardContent>
                 <TextField
@@ -81,11 +115,12 @@ export default function Post() {
                     rows={3}
                     variant="outlined"
                     fullWidth
-                    sx={{
-                        "& .MuiInputBase-root": {
-                            color: 'white'
-                        }
-                    }}
+                    color='primary'
+                    inputProps={{ style: { color: "#EBECF0" } }}
+                    InputLabelProps={{
+                        style: { color: '#EBECF0' },
+                      }}
+
                     value={content}
                     onChange={handlePostContentChange}
                 />

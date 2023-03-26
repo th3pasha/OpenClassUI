@@ -28,7 +28,6 @@ html::-webkit-scrollbar-track
   font-family: "JetBrains Mono" !important;
 }
 
-
 .nav 
 {
   width: 100%;
@@ -96,7 +95,7 @@ html::-webkit-scrollbar-track
 .homepageclass
 {
   background-color: inherit;
-  min-height: 100vh;
+  min-height: 500vh;
 }
 
 .mainpageclass {
@@ -109,7 +108,7 @@ html::-webkit-scrollbar-track
 .mainclass
 {
   display: block;
-  background-color: inherit;
+  background-color: "#020719";
   height: auto;
 }
 
@@ -120,21 +119,35 @@ html::-webkit-scrollbar-track
   top : 5vh;
   left: 15vh;
 }
+.todo
+{
+  width: 30%;
+  position: fixed;
+  top : 60vh;
+  left : 15vh;
+}
 
 .marketing-overview
 {
   width: 100%;
   position: fixed;
-  top: 40vh;
-  left: 15vh;
+  top: 5vh;
+  left: 158vh;
+}
+.studentslist {
+  width: 100%;
+  position: fixed;
+  top: 28vh;
+  left: 158vh;
 }
 
 .post {
-  width: 60%;
-  height: 30%;
+  display: block;
+  width: 600px;
+  height: 300px;
   position: relative;
   top: 5vh;
-  left: 40vh;
+  left: 69vh;
 }
 
 .posts {
@@ -144,10 +157,5 @@ html::-webkit-scrollbar-track
   right: 73vh;
 }
 
-.studentslist {
-  width: max-content;
-  position: fixed;
-  top: 5vh;
-  right: 15px;
-}
+
 

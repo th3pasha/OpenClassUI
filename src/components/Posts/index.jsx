@@ -10,15 +10,21 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import Comments from '../Comments';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+import { Container } from '@mui/material';  
 import './posts.css';
-import { Container } from '@mui/material';
+
+const cookies = new Cookies();
+const id = cookies.get('userid');
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '15px',
         margin: '0 auto',
-        backgroundColor: 'rgb(62,64,75)',
+        backgroundColor: '#343A46',
     },
     textField: {
         marginTop: theme.spacing(2),
@@ -28,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
     post:
     {
-        backgroundColor: 'rgb(62,64,75)',
+        backgroundColor: '#343A46',
     },
     box:
     {
@@ -41,7 +47,15 @@ const useStyles = makeStyles((theme) => ({
     },
     comments:
     {
-        backgroundColor: 'rgb(62,64,75)',
+        backgroundColor: '#343A46',
+    },
+    cardheader:
+    {
+        color: '#EBECF0',
+    },
+    postcontent:
+    {
+        color:'#EBECF0',
     },
 }));
 
@@ -50,26 +64,61 @@ export default function Posts() {
     const [data, setData] = useState([]);
     const [image, setImages] = useState([]);
     const [isFullScreen, setIsFullScreen] = useState(false);
+    const [isFetched, setFetched] = useState(false);
+    const [avatar, setAvatar] = useState();
+    const [isImage, setIsImage] = useState(true);
 
     const toggleFullScreen = () => {
         setIsFullScreen(!isFullScreen);
     }
-    
 
-    useEffect(() => {
-        axios.get("http://localhost:8080/v1/auth/student")
+    const fetchPosts = async() =>
+    {
+       await axios.get("http://localhost:8080/v1/auth/student")
             .then((response) => {
                 setData(response.data.content);
             });
-        axios.get("http://localhost:8080/v1/auth/student/files", {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+    }
+
+    function fetchImages(postid)
+    {
+        axios.get("http://localhost:8080/v1/auth/student/files/" + postid + ".png")
             .then((response) => {
-                const images = response.data;
-                setImages(images);
+                if(response.status === 200)
+                {
+                    setIsImage(true);
+                }
+                else{
+                    setIsImage(false);
+                } 
             });
+
+        if(setIsImage)
+        {
+            return "http://localhost:8080/v1/auth/student/files/" + postid + ".png";
+        }
+        else
+        {
+            
+        }
+    }
+
+    const fetchAvatars = async() =>{
+        await axios
+        .get("http://localhost:8080/v1/auth/student/files/" + id, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then((response) => {
+          setImages(response.data.url);
+          setFetched(true);
+        });
+    }
+
+    useEffect(() => {
+        fetchPosts();
+        fetchAvatars();
     }, []);
 
     return (
@@ -83,25 +132,34 @@ export default function Posts() {
                                     <React.Fragment key={post.id}>
                                         <Card className={classes.post} key={post.id}>
                                             <CardHeader
-                                                avatar={<Avatar>{ }</Avatar>}
+                                                avatar={isFetched ? (<Avatar className={classes.avatar} src={fetchImages(user.id)} />) : (<Avatar className={classes.avatar}>{Array.from(user.firstName)[0]}</Avatar>)}
                                                 title={user.firstName + ' ' + user.lastName}
                                                 subheader="now"
                                                 className={classes.cardheader}
                                             />
                                             <CardContent className={classes.postcontent}>
                                                 {post.content}
-                                                {image.map(image => (
-                                                <img 
-                                                    className={isFullScreen ? "full-screen" : "normal-screen" }
-                                                    src={image.url} 
-                                                    alt={image.name} 
-                                                    key={image.id} 
-                                                    onClick={toggleFullScreen}
-                                                />
-                                                ))}
+                                                {isImage ?  
+                                                (<img
+                                                        className={isFullScreen ? "full-screen" : "normal-screen"}
+                                                        src={fetchImages(post.id)}
+                                                        onClick={toggleFullScreen}
+                                                    />) : (null) }
                                             </CardContent>
                                         </Card>
                                         <CardActions>
+                                            <Accordion sx={{ backgroundColor: '#343A46' }}>
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                >
+                                                    <Typography sx={{color :'#EBECF0'}}>Comments</Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <Comments />
+                                                </AccordionDetails>
+                                            </Accordion>
                                             <Stack direction="row" spacing={2}>
                                                 <IconButton>
                                                     <ThumbUpIcon />
@@ -110,21 +168,7 @@ export default function Posts() {
                                                     <ThumbDownIcon />
                                                 </IconButton>
                                             </Stack>
-                                            <Accordion sx={{ backgroundColor: 'inherit' }}>
-                                                <AccordionSummary
-                                                    expandIcon={<ExpandMoreIcon />}
-                                                    aria-controls="panel1a-content"
-                                                    id="panel1a-header"
-                                                >
-                                                    <Typography>Comments</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <Typography>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                                                    </Typography>
-                                                </AccordionDetails>
-                                            </Accordion>
+
                                         </CardActions>
                                     </React.Fragment>
                                 </CardContent>

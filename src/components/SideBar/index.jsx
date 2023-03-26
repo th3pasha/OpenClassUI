@@ -5,7 +5,7 @@ import { IconButton, List, ListItem, ListItemText, Avatar, Typography, ListItemI
 import { Navigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/joy/CircularProgress';
 import HomeIcon from '@mui/icons-material/Home';
 import ThreePIcon from '@mui/icons-material/ThreeP';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -77,20 +77,41 @@ export default function Sidebar() {
   const classes = useStyles();
   const cookies = new Cookies();
   const navigate = useNavigate();
-  
+
   const [user, setUser] = useState('');
   const [name, setName] = useState('');
-  const [open, setOpen] = React.useState(false);
-  
+  const [open, setOpen] = useState(false);
+  const [images, setImages] = useState();
+  const [isAvatar, setAvatar] = useState(false);
+  const [isFetched, setFetched] = useState(false);
   const id = cookies.get('userid');
 
-  useEffect(() => {
+  const fetchAvatar = async () => {
+    setAvatar(false);
+    await axios.get("http://localhost:8080/v1/auth/student/files/"+id+".png", {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+        .then((response) => {
+            const images = response.data;
+            setImages("http://localhost:8080/v1/auth/student/files/"+id+".png");
+            setAvatar(true);
+        });
+  }
 
-    axios
+  const fetchName = async() =>
+  {
+    await axios
       .get('http://localhost:8080/v1/auth/student/' + id)
-      .then(response => { setName(response.data.lastName.toUpperCase()) })
-      .catch(error => console.error(error))
+      .then(response => { 
+        setName(response.data.lastName.toUpperCase());
+        setFetched(false); })
+  }
 
+  useEffect(() => {
+    fetchAvatar();
+    fetchName();
   }, []);
 
 
@@ -162,7 +183,7 @@ export default function Sidebar() {
           </List>
         </div>
         <div className={classes.profile}>
-          <Avatar className={classes.avatar}>{Array.from(name)[0]}</Avatar>
+          {isAvatar ? (<Avatar className={classes.avatar} src={images} />) : (<Avatar className={classes.avatar}>{Array.from(name)[0]}</Avatar>)}
           <IconButton aria-label="sign out" className={classes.logout} onClick={handleProgressClick}>
             <LogoutIcon />
           </IconButton>
@@ -173,7 +194,11 @@ export default function Sidebar() {
         open={open}
         onClick={handleProgressClose}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress
+          size="md"
+          value={50}
+          variant="solid"
+        />
       </Backdrop>
     </div>
   );

@@ -1,6 +1,6 @@
 *
 {
-  font-family: 'JetBrains Mono';
+  font-family: 'JetBrains Mono' !important;
 } 
 ::-webkit-scrollbar
 {
@@ -26,4 +26,8 @@ body {
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
+  }
+  .App
+  {
+    text-align: center;
   }

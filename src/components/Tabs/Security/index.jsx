@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
+import { Textarea, FormControl, Input } from '@mui/joy';
 
 const useStyles = makeStyles((theme) => ({
-    box:{
-        position:'relative',
-        top:'5vh',
-    },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: theme.spacing(2),
-    top:'15vh',
+  box: {
+    position: 'relative',
+    top: '10vh',
+    left: '3vh',
   },
   input: {
     margin: theme.spacing(1),
-    width: '100%',
+    width: '90%',
   },
   button: {
     margin: theme.spacing(2),
+    backgroundColor: 'inherit',
+    color: '#EBECF0',
   },
 }));
 
@@ -51,44 +47,65 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className={classes.box}>
-        <form className={classes.form} onSubmit={handleSubmit}>
-        <TextField
+    <div>
+      <Typography level="h2" fontSize="xl" sx={{ mb: 0.5, color: '#EBECF0', position:'relative', top:'1vh',left:'1vh' }}>
+        Change your password :
+      </Typography>
+      <div className={classes.box}>
+
+        <FormControl>
+          <Input
             className={classes.input}
             id="old-password"
-            label="Old Password"
+            placeholder="Old Password"
             type="password"
+            variant="outlined"
             value={oldPassword}
+            sx={{
+              backgroundColor: 'inherit',
+              color: '#EBECF0',
+            }}
             onChange={handleOldPasswordChange}
             required
-        />
-        <TextField
+          />
+          <Input
             className={classes.input}
             id="new-password"
-            label="New Password"
+            variant="outlined"
+            placeholder="New Password"
             type="password"
             value={newPassword}
+            sx={{
+              backgroundColor: 'inherit',
+              color: '#EBECF0',
+            }}
             onChange={handleNewPasswordChange}
             required
-        />
-        <TextField
+          />
+          <Input
             className={classes.input}
             id="confirm-password"
-            label="Confirm New Password"
+            variant="outlined"
+            placeholder="Confirm New Password"
             type="password"
+            sx={{
+              backgroundColor: 'inherit',
+              color: '#EBECF0',
+            }}
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             required
-        />
+          />
+        </FormControl>
         <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            type="submit"
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          type="submit"
         >
-            Save
+          Save
         </Button>
-        </form>
+      </div>
     </div>
   );
 };

@@ -1,9 +1,8 @@
-import React,{useState, useEffect}from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Sidebar from '../../components/SideBar';
 import Avatar from '@mui/joy/Avatar';
-import Dropzone from '../../components/Dropzone';
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
 import Tab from '@mui/joy/Tab';
@@ -26,13 +25,14 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '15px',
         position: 'relative',
         top: '50vh',
-        left: '6vh',
+        left: '4vh',
     },
     main:
     {
         position: 'absolute',
         width: '200vh',
         height: '100vh',
+        overflow: 'hidden',
         backgroundColor: 'rgb(40,43,54)',
     },
     avatar:
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     tabs:
     {
+        position: 'relative',
         top: '23vh',
         left: '35vh',
         backgroundColor: '#343A46',
@@ -51,13 +52,18 @@ const useStyles = makeStyles((theme) => ({
     info:
     {
         position: 'relative',
-        top:'37vh',
-        left:'31vh',
+        top: '37vh',
+        left: '31vh',
     },
     subheader:
     {
-        position:'relative',
-        left:'3vh',
+        position: 'relative',
+        left: '2vh',
+    },
+    header:
+    {
+        position: 'relative',
+        right: '2vh'
     },
 }));
 
@@ -74,14 +80,14 @@ export default function Account() {
 
     const fetchAvatar = async () => {
         setAvatar(false);
-        await axios.get("http://localhost:8080/v1/auth/student/files/"+id+".png", {
+        await axios.get("http://localhost:8080/v1/auth/student/files/" + id + ".png", {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
             .then((response) => {
                 const images = response.data;
-                setImages("http://localhost:8080/v1/auth/student/files/"+id+".png");
+                setImages("http://localhost:8080/v1/auth/student/files/" + id + ".png");
                 setAvatar(true);
             });
     }
@@ -110,19 +116,19 @@ export default function Account() {
                 <Sidebar />
             </div>
             <div className={classes.body}>
-                {isAvatar ? (<Avatar sx={{ width: '150px', height: '150px', backgroundColor: '#BDBDBD' }} src = {images} className={classes.avatar}></Avatar>) : (
-                <Avatar sx={{ width: '150px', height: '150px', backgroundColor: '#BDBDBD', fontSize:'70px' }} className={classes.avatar}>{Array.from(first_name)[0]}</Avatar>) }
+                {isAvatar ? (<Avatar sx={{ width: '150px', height: '150px', backgroundColor: '#BDBDBD' }} src={images} className={classes.avatar}></Avatar>) : (
+                    <Avatar sx={{ width: '150px', height: '150px', backgroundColor: '#BDBDBD', fontSize: '70px' }} className={classes.avatar}>{Array.from(first_name)[0]}</Avatar>)}
                 <div className={classes.info}>
-                    <Typography level= 'h4' sx={{color: '#EBECF0'}}>{first_name} {last_name}</Typography>
-                    <Typography className={classes.subheader} level= 'h6'sx={{color: '#FCF7F9'}}>Student</Typography>
+                    <Typography className={classes.header} level='h4' sx={{ color: '#EBECF0' }}>{first_name} {last_name}</Typography>
+                    <Typography className={classes.subheader} level='h6' sx={{ color: '#FCF7F9' }}>Student</Typography>
                 </div>
                 <Box className={classes.box} sx={{ width: 350, height: 350 }}>
                     <Avatarzone />
                 </Box>
-                <Tabs className={classes.tabs} defaultValue={0} sx={{ borderRadius: '15px', backgroundColor: '#343A46',  width: 800, height: 500 }}>
+                <Tabs className={classes.tabs} defaultValue={0} sx={{ borderRadius: '15px', backgroundColor: '#343A46', width: 800, height: 500 }}>
                     <TabList sx={{ borderRadius: '15px', backgroundColor: '#343A46' }}>
                         <Tab>Activity</Tab>
-                        <Tab>Informations</Tab>
+                        <Tab>Activity</Tab>
                         <Tab>Security</Tab>
                     </TabList>
                     <TabPanel>

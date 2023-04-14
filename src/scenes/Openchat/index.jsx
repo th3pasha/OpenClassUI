@@ -46,7 +46,7 @@ export default function OpenChat() {
       {isFetched ? (<div style={{ fontFamily: 'JetBrains Mono' }}>
         <div className={classes.chatwindow} >
           <PrettyChatWindow
-            projectId="019c8371-81b8-4f7e-aa96-e82e91b2d06f"
+            projectId="2ff35100-423f-4f0f-94db-babf3392b8d9"
             username={username}
             secret={secret}
             height='100vh'

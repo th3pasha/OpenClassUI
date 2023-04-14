@@ -1,0 +1,71 @@
+.Dest {
+    margin: 4rem 6rem;
+
+}
+
+.Dest h1{
+    font-size: 3rem;
+
+}
+.first-dest{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4.5rem;
+}
+
+.dest-txt{
+    
+    width: 37%; 
+    text-align: start;
+    right: 100px;
+    font-size: 1.5rem;
+
+}
+.dest-txt h2 {
+    padding-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.img{
+    position: absolute;
+    height: 470px;
+    width: 50%;
+    display:grid;
+    z-index: -99;
+    top: 120%;
+    right: 85px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 10px;    
+    box-shadow: -1px 1px 62px -18px rgba(0, 0, 0, 20);
+
+}
+
+.dest-txt2{
+    position: absolute;
+    width: 35%;
+    text-align:start;
+    right: 100px;
+    font-size: 1.5rem;
+    top: 177%;
+
+}
+.dest-txt2 h2 {
+    padding-bottom: 1rem;
+    font-size: 2rem;
+}
+.img2{
+    position: absolute;
+    height: 470px;
+    width: 140%;
+    display:grid;
+    z-index: -99;
+    top: 1%;
+    right: 780px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 10px;    
+    box-shadow: -1px 1px 62px -18px rgba(0, 0, 0, 20);
+
+}

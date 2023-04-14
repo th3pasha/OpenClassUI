@@ -65,7 +65,6 @@ export default function Posts() {
     const [image, setImages] = useState([]);
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [isFetched, setFetched] = useState(false);
-    const [avatar, setAvatar] = useState();
     const [isImage, setIsImage] = useState(true);
 
     const toggleFullScreen = () => {
@@ -103,17 +102,17 @@ export default function Posts() {
         }
     }
 
-    const fetchAvatars = async() =>{
-        await axios
-        .get("http://localhost:8080/v1/auth/student/files/" + id, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+    function fetchAvatars(id){
+        let avatarUrl
+        axios.get("http://localhost:8080/v1/auth/student/files/"+id+".png", {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         })
-        .then((response) => {
-          setImages(response.data.url);
-          setFetched(true);
-        });
+            .then((response) => {
+               avatarUrl = "http://localhost:8080/v1/auth/student/files/"+id+".png";
+            });
+        return avatarUrl;
     }
 
     useEffect(() => {
@@ -132,7 +131,7 @@ export default function Posts() {
                                     <React.Fragment key={post.id}>
                                         <Card className={classes.post} key={post.id}>
                                             <CardHeader
-                                                avatar={isFetched ? (<Avatar className={classes.avatar} src={fetchImages(user.id)} />) : (<Avatar className={classes.avatar}>{Array.from(user.firstName)[0]}</Avatar>)}
+                                                avatar={<Avatar className={classes.avatar} src={fetchAvatars(user.id)} />}
                                                 title={user.firstName + ' ' + user.lastName}
                                                 subheader="now"
                                                 className={classes.cardheader}
